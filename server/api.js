@@ -10,23 +10,22 @@ router.get("/", (_, res) => {
 	res.json({ message: "Hello, world!" });
 });
 
-router.get("/test", (req, res) => {
-	const getRole = req.body;
-	console.log(getRole);
-	const allMentors = "SELECT * FROM mentors";
-	const allStudents = "SELECT * FROM students";
-	if(getRole.role === "mentors"){
-	db.query(allMentors).then((result) => res.status(200).json(result.rows));
-	} else {
-		db.query(allStudents).then((result) => res.status(200).json(result.rows));
-	}
+router.get("/roles", (req, res) => {
+	const getRole = req.query.role;
+	let query = `SELECT * FROM students`;
+	if(getRole === "mentor"){
+		query = "SELECT * FROM mentors";		
+	} 
+	
+	db.query(query).then((result) => res.status(200).json(result.rows));
+	
 });
 
 // router.use(express.json())
-router.post("/roles", (req, res) => {
+router.post("/roles/signup/:role", (req, res) => {
 	console.log(req.body);
 	const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
-	const newMentor = req.body;
+	let newRole = req.params.role;
 	const newRoleName = req.body.name;
 	const newRoleEmail = req.body.email;
 	const newRolePassword = req.body.password;
@@ -35,16 +34,17 @@ router.post("/roles", (req, res) => {
 	const insertStudentQuery = `INSERT INTO students (name, email, password, location) VALUES ($1, $2, $3, $4) RETURNING ID`;
 	if (!regExpression.exec(newRoleName)) {
 		res.status(500).send("Fill in correct field");
-	} else if(req.body.role === "mentor") {
+	} else if(newRole === "mentor") {
 		// console.log(result.rows)
 		db.query(insertMentorQuery, [
 			newRoleName,
 			newRoleEmail,
 			newRolePassword,
 			newRoleLocation,
-		])
+		]).then((result) => res.status(201).send(result.rows[0]))
+		.catch((error) => console.error(error));
 			
-	} else {
+	} else if(newRole === "student") {
 		db.query(insertStudentQuery, [
 			newRoleName,
 			newRoleEmail,
