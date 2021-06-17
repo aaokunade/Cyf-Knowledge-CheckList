@@ -69,15 +69,4 @@ INSERT INTO region (location, stud_id, ment_id) VALUES ('west mids', 1, 1);
 INSERT INTO techskills (lessons) VALUES ('react');
 INSERT INTO learningobjectives (objectives, lesson_id) VALUES ('fundmentals', 1);
 INSERT INTO competencylevel(competency) VALUES ('very Confident');
-INSERT INTO mappingskills (stud_id, obj_id, comp_id) VALUES (1,1,1);
-
-
-
-
--- modified:   client/src/pages/Home.js
-        modified:   server/api.js
-        modified:   server/middleware.js
-         modified:   server/server.js
-        knowledge_checklist.sql
-
-
+INSERT INTO mappingskills (stud_id, obj_id, comp_id) VALUES (1,1,1); 
