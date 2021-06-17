@@ -24,40 +24,72 @@ CREATE TABLE mentors (
 
 CREATE TABLE region (
     id          SERIAL PRIMARY KEY,
-    location    VARCHAR(50) NOT NULL  
+    location    VARCHAR(50) NOT NULL 
 );
 
 CREATE TABLE learning_objectives (
     id           SERIAL PRIMARY KEY,
-    objectives   VARCHAR (50)NOT NULL,
-    lesson_id    INT NOT NULL  
+    obj_id       VARCHAR (50)NOT NULL,
+    lesson_id    INT NOT NULL            
 );
 
 CREATE TABLE mapping_skills (
     id          SERIAL PRIMARY KEY,
-    stud_id     INT NOT NULL,
+    stud_id     INT REFERENCES students(id), 
     obj_id      INT NOT NULL,    
-    comp_id     INT NOT NULL   
+    comp_id     INT NOT NULL
+         
 );
 
 CREATE TABLE tech_skills (
     id          SERIAL PRIMARY KEY,
-    lessons     VARCHAR(50)NOT NULL     
+    tech_id     VARCHAR(50)NOT NULL,
+    stud_id     INT NOT NULL,
+    obj_id      INT NOT NULL
+        
 );
 
 CREATE TABLE competency_level (
     id          SERIAL PRIMARY KEY,
-    stud_id     integer references,
-    competency  integer references
+    stud_id     INT NOT NULL,
+    comp_id     INT NOT NULL
 );
 
-INSERT INTO students (name, location, email, password) VALUES ('student', 'west mids', 'email@email.com','password');
-INSERT INTO mentors (name, location, email, password) VALUES ('mentors', 'west mids', 'email@email.com', 'password');
-INSERT INTO region (location) VALUES ('west mids');
-INSERT INTO learning_objectives (objectives, lesson_id) VALUES ('fundmentals', 1);
-INSERT INTO mapping_skills (stud_id, obj_id, comp_id) VALUES (2,3,4);
-INSERT INTO tech_skills (lessons) VALUES ('react');
-INSERT INTO competency_level(stud_id, competency) VALUES (2,3);
+INSERT INTO students (name, location, email, password) VALUES ('Mister', 'west midlands', 'email@email.com','password');
+INSERT INTO students (name, location, email, password) VALUES ('Miss', 'Scotland', 'missl@email.com','password1');
+INSERT INTO students (name, location, email, password) VALUES ('junior', 'North West', 'junior@email.com','password2');
+
+INSERT INTO mentors (name, location, email, password) VALUES ('tutora', 'North West', 'tutora@email.com', 'passworda');
+INSERT INTO mentors (name, location, email, password) VALUES ('tutorb', 'West Mids', 'tutorb@email.com', 'passwordb');
+INSERT INTO mentors (name, location, email, password) VALUES ('tutorc', 'Scotland', 'tutorc@email.com', 'passwordc');
+
+INSERT INTO region (location) VALUES ('West Midlands');
+INSERT INTO region (location) VALUES ('Scotland');
+INSERT INTO region (location) VALUES ('London');
+INSERT INTO region (location) VALUES ('North West');
+INSERT INTO region (location) VALUES ('Cape Town');
+
+
+INSERT INTO learning_objectives (obj_id, lesson_id) VALUES ('fundmentals', 1);
+INSERT INTO learning_objectives (obj_id, lesson_id) VALUES ('DOM', 2);
+INSERT INTO learning_objectives (obj_id, lesson_id) VALUES ('Props',3);
+
+INSERT INTO mapping_skills (stud_id, obj_id, comp_id) VALUES (1,2,3);
+INSERT INTO mapping_skills (stud_id, obj_id, comp_id) VALUES (3,2,1);
+INSERT INTO mapping_skills (stud_id, obj_id, comp_id) VALUES (2,1,3);
+
+INSERT INTO tech_skills (tech_id,stud_id,obj_id) VALUES ('html',3,2);
+INSERT INTO tech_skills (tech_id,stud_id,obj_id) VALUES ('css', 1,2);
+INSERT INTO tech_skills (tech_id,stud_id,obj_id) VALUES ('javascript',1,3);
+INSERT INTO tech_skills (tech_id,stud_id,obj_id) VALUES ('node.js', 2,1);
+INSERT INTO tech_skills (tech_id,stud_id,obj_id) VALUES ('react',3,1);
+INSERT INTO tech_skills (tech_id,stud_id,obj_id) VALUES ('sql',1,1);
+
+INSERT INTO competency_level(stud_id, comp_id) VALUES (1,1);
+INSERT INTO competency_level(stud_id, comp_id) VALUES (3,2);
+INSERT INTO competency_level(stud_id, comp_id) VALUES (2,3);
+
+
 
 
 
