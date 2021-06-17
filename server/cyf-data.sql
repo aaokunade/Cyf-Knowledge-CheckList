@@ -6,7 +6,7 @@ drop table if exists mappingskills cascade;
 drop table if exists techskills cascade;
 drop table if exists competencylevels cascade;
 ​
-CREATE TABLE users (
+CREATE TABLE students (
     id          SERIAL PRIMARY KEY,
     name        VARCHAR (50)NOT NULL,
     location    VARCHAR (50)NOT NULL,
@@ -65,10 +65,25 @@ CREATE TABLE mappingskills (
 ​
 ​
 INSERT INTO students (name, location, email, password) VALUES ('student', 'west mids', 'email@email.com','password');
+
 INSERT INTO mentors (name, location, subject, email, password) VALUES ('mentors', 'west mids', 'html', 'email@email.com', 'password');
-INSERT INTO region (location, stud_id, ment_id) VALUES ('west mids', 1, 1);
+
+INSERT INTO region (location,stud_id, ment_id)  VALUES ('West Midlands', 1, 1);
+INSERT INTO region (location,stud_id, ment_id)  VALUES ('Scotland', 2, 2);
+INSERT INTO region (location,stud_id, ment_id)  VALUES ('London', 3, 3);
+INSERT INTO region (location,stud_id, ment_id)  VALUES ('North West', 4, 4);
+INSERT INTO region (location,stud_id, ment_id)  VALUES ('Cape Town', 5, 5);
+
 INSERT INTO techskills (lessons) VALUES ('react');
+INSERT INTO techskills (lessons) VALUES ('html');
+INSERT INTO techskills (lessons) VALUES ('css');
+INSERT INTO techskills (lessons) VALUES ('node');
+INSERT INTO techskills (lessons) VALUES ('sql');
+INSERT INTO techskills (lessons) VALUES ('javascript');
+
 INSERT INTO learningobjectives (objectives, lesson_id) VALUES ('fundmentals', 1);
+
 INSERT INTO competencylevels(competency) VALUES ('very Confident');
+
 INSERT INTO mappingskills (stud_id, obj_id, comp_id) VALUES (1,1,1);
 ​
