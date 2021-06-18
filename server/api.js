@@ -32,7 +32,6 @@ router.get("/classes", (req, res) => {
 	const lessonQuery = `SELECT objectives FROM learningobjectives INNER JOIN techskills ON learningobjectives.lesson_id = techskills.id WHERE techskills.lessons = '${getLesson}'`;
 	db.query(lessonQuery).then((result) => res.status(201).send(result.rows[0])).catch((error) => console.error(error));
 });
-
 // router.use(express.json())
 router.post("/users/signup/:role", (req, res) => {
 	console.log(req.body);
