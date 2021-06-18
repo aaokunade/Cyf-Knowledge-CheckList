@@ -10,18 +10,31 @@ router.get("/", (_, res) => {
 	res.json({ message: "Hello, world!" });
 });
 
-router.get("/roles", (req, res) => {
+router.get("/users", (req, res) => {
 	const getRole = req.query.role;
 	let query = `SELECT * FROM students`;
 	if(getRole === "mentor"){
-		query = "SELECT * FROM mentors";		
-	} 	
+		query = "SELECT * FROM mentors";
+	}
 	db.query(query).then((result) => res.status(200).json(result.rows));
-	
+});
+
+// router.get('/users/:id', (req, res) => {
+// 	const userID = req.params.id;
+// 	const getStudUserById = `SELECT * FROM students WHERE id=1$`;
+// 	const getMentUserById = `SELECT * FROM mentors WHERE id=1$`;
+// })
+
+router.get("/classes", (req, res) => {
+	const getLesson = req.query.lesson;
+	console.log(getLesson);
+	// let lessonQuery = SELECT * FROM techskills;
+	const lessonQuery = `SELECT objectives FROM learningobjectives INNER JOIN techskills ON learningobjectives.lesson_id = techskills.id WHERE techskills.lessons = '${getLesson}'`;
+	db.query(lessonQuery).then((result) => res.status(201).send(result.rows[0])).catch((error) => console.error(error));
 });
 
 // router.use(express.json())
-router.post("/roles/signup/:role", (req, res) => {
+router.post("/users/signup/:role", (req, res) => {
 	console.log(req.body);
 	const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
 	let newRole = req.params.role;
