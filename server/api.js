@@ -15,8 +15,7 @@ router.get("/roles", (req, res) => {
 	let query = `SELECT * FROM students`;
 	if(getRole === "mentor"){
 		query = "SELECT * FROM mentors";		
-	} 
-	
+	} 	
 	db.query(query).then((result) => res.status(200).json(result.rows));
 	
 });
@@ -30,7 +29,8 @@ router.post("/roles/signup/:role", (req, res) => {
 	const newRoleEmail = req.body.email;
 	const newRolePassword = req.body.password;
 	const newRoleLocation = req.body.location;
-	const insertMentorQuery = `INSERT INTO mentors (name, email, password, location) VALUES ($1, $2, $3, $4) RETURNING ID`;
+	const newRoleSubject = req.body.subject;
+	const insertMentorQuery = `INSERT INTO mentors (name, email, password, subject, location) VALUES ($1, $2, $3, $4, $5) RETURNING ID`;
 	const insertStudentQuery = `INSERT INTO students (name, email, password, location) VALUES ($1, $2, $3, $4) RETURNING ID`;
 	if (!regExpression.exec(newRoleName)) {
 		res.status(500).send("Fill in correct field");
@@ -41,6 +41,7 @@ router.post("/roles/signup/:role", (req, res) => {
 			newRoleEmail,
 			newRolePassword,
 			newRoleLocation,
+			newRoleSubject,
 		]).then((result) => res.status(201).send(result.rows[0]))
 		.catch((error) => console.error(error));
 			
