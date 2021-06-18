@@ -1,11 +1,160 @@
-.logo {
-    width: 100px;
+body {
+    font-family: monospace;
+}
+.header {
+    background-color: rgb(214, 214, 211);
+    padding: 1%;
+    display:flex;
 }
 
-.message {
-    color: blue;
+.header h1 {
+    margin-left: 40%;
 }
 
-.message:hover {
-    background-color: yellow;
+.container h1 {
+    text-align: center;
+    background-color: black;
+    color: whitesmoke;
+    padding: 3%;
+}
+
+.header span {
+    font-size: 1.5rem;
+    width: 1%;
+}
+
+/* .home-buttons {
+
+} */
+
+.home-buttons button {
+    width: 10%;
+    height: 50px;
+    border-color: red;
+    background-color: white;
+    margin-right: 2%;
+    margin-top: 1%;
+    border-radius: 10%;
+    float: right;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: ease-out 0.3s;
+    outline: none;
+    position: relative;
+    z-index: 1;
+}
+
+.home-buttons button:before {
+    transition: 0.5s all ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    opacity: 0;
+    content: "";
+    background-color: red;
+} 
+
+.home-buttons button:hover:before {
+    transition: 0.5s all ease;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    z-index: -1;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.welcome-text {
+    width: 50%;
+    margin-left: 3%;
+    margin-right: 3%;
+    font-size: 1.5rem;
+    font-family: cursive;
+}
+
+.welcome-text::first-line {
+    color: red;
+}
+
+.span-your {
+    color: red;
+}
+
+/* .signUp-container {
+  margin: auto;
+} */
+
+.signUp-wrapper {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background-color: rgb(206, 203, 201);
+    padding: 1.5%;
+    text-align: center;
+    box-shadow: 7px 10px rgb(87, 85, 85);
+    border-radius: 10%;
+}
+
+.login {
+    margin-top: 5%;
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #777;
+    background-color: #eee;
+    outline: none;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+    margin: 0 0 8px 0;
+    box-shadow: 0 0 15px 10px rgba(8, 8, 8, 0.06);
+}
+
+.signUp-btn {
+    background-color: black;
+    width: 20%;
+    height: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 2%;
+    margin-top: 1%;
+    border-radius: 10%;
+    color: white;
+}
+
+.signUp-link {
+    text-decoration: none;
+    color: white;
+}
+
+.error {
+  color: red;
+}
+
+.main {
+    display: flex;
+    margin-top: 10%;
+}
+
+.home-image {
+    width: 50%;
+}
+
+.image {
+    width: 100%;
+    height: auto;
 }
