@@ -1,7 +1,9 @@
 /* eslint-disable brace-style */
 import { Router } from "express";
 import db from "./db";
-
+import app from "./app";
+// const cors = require("cors");
+// app.use(cors());
 
 const router = new Router();
 
@@ -37,10 +39,11 @@ router.post("/users/signup/:role", (req, res) => {
 	console.log(req.body);
 	const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
 	let newRole = req.params.role;
+	console.log(newRole);
 	const newRoleName = req.body.name;
 	const newRoleEmail = req.body.email;
 	const newRolePassword = req.body.password;
-	const newRoleLocation = req.body.location;
+	const newRoleLocation = req.body.region;
 	const newRoleSubject = req.body.subject;
 	const insertMentorQuery = `INSERT INTO mentors (name, email, password, subject, location) VALUES ($1, $2, $3, $4, $5) RETURNING ID`;
 	const insertStudentQuery = `INSERT INTO students (name, email, password, location) VALUES ($1, $2, $3, $4) RETURNING ID`;
