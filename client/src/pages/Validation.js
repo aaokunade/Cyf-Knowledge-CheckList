@@ -29,7 +29,7 @@ const Validation = (values) => {
   if (!values.role) {
     errors.role = "Please select an option."
   }
-   if (!values.region) {
+  if (!values.region) {
     errors.region = "Please select an option."
   }
 
