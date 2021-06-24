@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import image from './Images/students.jpeg';
 import "./Home.css";
+import Footer from './Footer';
 
 
 export function Home() {
@@ -65,6 +66,7 @@ export function Home() {
         {/* <h1 className="message" data-qa="message">{message}</h1> */}
         {/* <Link to="/about/this/site">About</Link> */}
       </div>
+      <Footer />
     </div>
   );
 }
