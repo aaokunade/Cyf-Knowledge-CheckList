@@ -1,22 +1,27 @@
 import { Pool } from "pg";
 require("dotenv").config();
+const password = process.env.PASS;
+const userName = process.env.USERNAME;
+let pool;
 
-const dbUrl = process.env.DATABASE_URL || "postgres://localhost:5432/cyf";
-const pool = new Pool({
+if(process.env.NODE_ENV === "development"){
+	const dbUrl = `postgres://${userName}:${password}@localhost:5432/cyf`;
+	pool = new Pool({
+  connectionString: dbUrl
+});
+} else {
+	const dbUrl = process.env.DATABASE_URL;
+	pool = new Pool({
   connectionString: dbUrl,
   ssl: {
     rejectUnauthorized: false,
   },
   connectionTimeoutMillis: 5000,
 });
+}
 
-// const pool = new Pool({
-// 	host: "localhost",
-// 	port: 5432,
-// 	user: "aaokunade",
-// 	password: "alamu3809",
-// 	database: "cyf",
-// });
+
+// console.log(process.env.DATABASE_URL, dbUrl);
 
 export const connectDb = async () => {
 	let client;
