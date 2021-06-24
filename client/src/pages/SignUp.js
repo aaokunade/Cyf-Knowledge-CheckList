@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Validation from "./Validation";
 import { Link } from "react-router-dom";
 import SignUPSuccess from "./SignUPSuccess";
+import Footer from './Footer';
+
 
 const SignUp = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -160,10 +162,11 @@ const SignUp = () => {
               </div>
               <div>
                 <select name="region" onChange={handleChange}>
+                   <option>Select Region</option>
 					{region.map((r, index)=>{
-						<option  key = {index} value={index}>{r}</option>
+						<option  key={index} value={r}>{r}</option>
 					})}
-                  <option>Select Region</option>
+                 
                   <option value="West Midlands">West Midlands</option>
                   <option value="London">London</option>
                 </select>
@@ -186,6 +189,7 @@ const SignUp = () => {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   );
 };

@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import Footer from './Footer';
+
+
 const SignUPSuccess = () => {
     return (
       <div className="signup-success">
@@ -14,6 +17,7 @@ const SignUPSuccess = () => {
           </Link>
         </button>
         </div>
+        <Footer />
       </div>
     );
 }

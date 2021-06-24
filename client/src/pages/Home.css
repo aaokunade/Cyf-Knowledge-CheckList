@@ -1,6 +1,8 @@
 body {
     font-family: monospace;
 }
+
+/* Home component */
 .header {
     background-color: rgb(214, 214, 211);
     padding: 1%;
@@ -11,21 +13,10 @@ body {
     margin-left: 40%;
 }
 
-.container h1 {
-    text-align: center;
-    background-color: black;
-    color: whitesmoke;
-    padding: 3%;
-}
-
 .header span {
     font-size: 1.5rem;
     width: 1%;
 }
-
-/* .home-buttons {
-
-} */
 
 .home-buttons button {
     width: 10%;
@@ -85,26 +76,57 @@ body {
     color: red;
 }
 
-/* .signUp-container {
-  margin: auto;
-} */
-
-.signUp-wrapper {
-    margin: auto;
+.main {
     display: flex;
-    flex-direction: column;
+    margin-top: 10%;
+}
+
+.home-image {
     width: 50%;
-    background-color: rgb(206, 203, 201);
-    padding: 1.5%;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+}
+
+/* Login */
+.container h1 {
     text-align: center;
-    box-shadow: 7px 10px rgb(87, 85, 85);
-    border-radius: 10%;
-}
+    background-color: black;
+    color: whitesmoke;
+    padding: 3%;
+    margin: 0;
+} 
 
-.login {
+.container .login {
     margin-top: 5%;
+    height: 300px;
+    width:40%;
 }
 
+.login-btn {
+    margin-top: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.login-btn button {
+    padding: 3%;
+    border: none;
+    border-radius: 10%;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.login-btn button:hover {
+    background-color: red;
+    color: white;
+}
+
+/* both forms */
 label {
     display: block;
     margin-top: 1rem;
@@ -124,13 +146,26 @@ input {
     box-shadow: 0 0 15px 10px rgba(8, 8, 8, 0.06);
 }
 
+/* SignUp container */
+.signUp-wrapper {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    background-color: rgb(206, 203, 201);
+    padding: 1.5%;
+    text-align: center;
+    box-shadow: 7px 10px rgb(87, 85, 85);
+    border-radius: 10%;
+}
+
 .signUp-btn {
     background-color: black;
     width: 20%;
     height: 50px;
     font-size: 1rem;
     cursor: pointer;
-    margin-right: 2%;
+    margin-right: 4%;
     margin-top: 1%;
     border-radius: 10%;
     color: white;
@@ -141,20 +176,131 @@ input {
     color: white;
 }
 
+.sign-up-dropdown {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.sign-up-dropdown select {
+   padding: 10px;
+   margin-top: 20%;
+   margin-bottom: 20%;
+   font-size: 1rem;
+   box-sizing: border-box;
+   border: none;
+   border-bottom: 1px solid #777;
+   background-color: #eee;
+   outline: none;
+   box-shadow: 0 0 15px 10px rgba(8, 8, 8, 0.06);
+} 
+
+/* Validation */
 .error {
   color: red;
 }
 
-.main {
-    display: flex;
+/* Student page */
+
+.student-page {
+    margin: 5%;
     margin-top: 10%;
 }
 
-.home-image {
-    width: 50%;
+.student-page p {
+    font-size: 1.2rem;
 }
 
-.image {
-    width: 100%;
-    height: auto;
+.skills-btn-container {
+    margin-top: 10%;
+}
+
+.skills-btn {
+    width: 15%;
+    padding: 1%;
+    margin-right: 2%;
+    margin-bottom: 10%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 10%;
+    border: none;
+    box-shadow: 5px 7px rgb(94, 89, 89);
+}
+
+.competency-level button {
+     border-radius: 10%;
+     background-color: white;
+     border: none;
+     box-shadow: 4px 6px rgb(94, 89, 89);
+}
+
+.skills-btn:hover {
+    background-color: red;
+    color: white;
+}
+
+.competency-level {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.skill-section {
+    margin-top: 10%;
+}
+
+.student-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10%;
+}
+
+.student-page h1 {
+    text-align: center;
+    background-color: whitesmoke;
+    padding: 2%;
+    color: red;
+}
+
+.skills-btn-container a {
+    text-decoration: none;
+    color: black;
+}
+
+/* SignUPSuccess component */
+.signUp-success h1 {
+    text-align: center;
+    background-color: whitesmoke;
+    padding: 2%;
+    color: red;
+}
+
+.registered-container {
+    border: none;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    height: 450px;
+    margin: auto;
+}
+
+.registered-container button {
+    padding: 2%;
+    width: 50%;
+    font-size: 1.5rem;
+    margin-bottom: 2%;
+}
+
+.registered {
+    color: white;
+    text-align: center;
+    margin: auto;
+    font-size: 1.5rem;
+}
+
+/* Footer component */
+.footer {
+    text-align: center;
+    font-size: 0.7rem;;
 }
