@@ -1,6 +1,7 @@
 import http from "http";
 import app from "./app";
 import { connectDb, disconnectDb } from "./db";
+require("dotenv").config();
 const port = parseInt(process.env.PORT || "3000");
 
 const server = http.createServer(app);
@@ -11,6 +12,7 @@ server.on("listening", () => {
 	console.log(`Listening on ${bind}`);
 });
 
+console.log(process.env.NODE_ENV);
 
 process.on("SIGTERM", () => server.close(() => disconnectDb()));
 

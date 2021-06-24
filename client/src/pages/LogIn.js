@@ -1,28 +1,54 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from "react-router-dom";
-
-
+import Validation from "./Validation";
+// import Footer from './Footer';
 function LogIn() {
+const [loginValues, setLoginValues] = useState({email: "", password: ""})
+const [errors, setErrors] = useState({});
+// const [loginStatus, setLoginStatus] = useState();
+const handleLogChange = (e) => {
+  const { name, value } = e.target;
+    setLoginValues({
+      ...loginValues,
+      [name]: value,
+    });
+};
+  function handleLoginFormSubmit(event) {
+    event.preventDefault();
+    setErrors(Validation(loginValues));
+    fetch('/api/users/login', {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginValues),
+    })
+    .then((result) => result.json())
+    .then((res) => {
+      console.log(res.message);
+    });
+  }
     return (
       <div className="container">
           <h1>CODE YOUR FUTURE</h1>
         <div className="signUp-wrapper login">
-          <form action="/" method="POST" autocomplete="off">
+          <form action="/" method="POST" autoComplete="off">
             <div>
               <label htmlFor="email" className="s-email">
                 Email
               </label>
               <input
                 id="email"
-                // onChange={handleChange}
+                onChange={handleLogChange}
                 className="s-input-e"
                 type="email"
                 name="email"
-                // value={values.email}
+                value={loginValues.email}
                 placeholder="Email"
                 required
               />
-              {/* {errors.email && <p className="error">{errors.email}</p>} */}
+              {errors.email && <p className="error">{errors.email}</p>}
             </div>
             <div>
               <label htmlFor="password" className="s-password">
@@ -30,32 +56,22 @@ function LogIn() {
               </label>
               <input
                 id="password"
-                // onChange={handleChange}
+                onChange={handleLogChange}
                 className="s-input-p"
                 type="password"
                 name="password"
-                // value={values.password}
+                value={loginValues.password}
                 placeholder="Password"
               />
-              {/* {errors.password && <p className="error">{errors.password}</p>} */}
+              {errors.password && <p className="error">{errors.password}</p>}
             </div>
             <div>
-              <select>
-                <option>Select Role</option>
-                <option value="admin">Admin</option>
-                <option value="mentor">Mentor</option>
-                <option value="student">Student</option>
-              </select>
-            </div>
-            <div>
-              <select>
-                <option value="0">Select Region</option>
-                <option value="1">West Midlands</option>
-                <option value="2">London</option>
-              </select>
-            </div>
-            <div>
-              <button type="submit">Log In</button>
+              <button type="submit" onClick={handleLoginFormSubmit}>
+                {/* <Link className="link" to="/Student"> */}
+                  Login
+                {/* </Link> */}
+                </button>
+              <button>Forgot Password</button>
               <button>
                 <Link className="link" to="/">
                   Cancel
@@ -64,8 +80,9 @@ function LogIn() {
             </div>
           </form>
         </div>
+        {/* <h2>{loginStatus}</h2> */}
+         {/* <Footer /> */}
       </div>
     );
 };
-
 export default LogIn;
