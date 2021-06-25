@@ -33,16 +33,28 @@ router.post("/users/", (req, res) => {
 // ON learningobjectives.id = mappingskills.obj_id ORDER BY lessons`;
 
 //query to display student page;
-const lessonsOnlyQuery = `SELECT objectives, lessons FROM learningobjectives INNER JOIN techskills ON  learningobjectives.lesson_id = techskills.id ORDER BY lessons`;
+const lessonsOnlyQuery = `SELECT objectives, lessons 
+FROM learningobjectives 
+INNER JOIN techskills ON  learningobjectives.lesson_id = techskills.id ORDER BY lessons`;
 router.get("/studentsPage", (req, res) => {
-	db.query(lessonsOnlyQuery).then((result) =>
-	 res.status(200).json(result.rows)).catch((error) => console.error(error));
+	db.query(lessonsOnlyQuery).then((result) => {
+		let lessonsArray = {};
+		result.rows.forEach((row) =>{
+			if(!lessonsArray.hasOwnProperty(row.lessons)){
+				lessonsArray[row.lessons] = [row.objectives];
+			} else {
+				lessonsArray[row.lessons].push(row.objectives);
+			}
+		});
+		res.status(200).json(lessonsArray);
+	}).catch((error) => console.error(error));
 });
 
 //query to get all lessons from database
 router.get("/lessons", (req, res) => {
 	const lessonQuery = `SELECT lessons FROM techskills`;
-	db.query(lessonQuery).then((result) => res.status(201).send(result.rows)).catch((error) => console.error(error));
+	db.query(lessonQuery).then((result) => res.status(201).send(result.rows))
+		.catch((error) => console.error(error));
 });
 
 //query to post data at creation of account to database

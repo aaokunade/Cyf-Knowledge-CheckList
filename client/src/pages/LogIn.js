@@ -10,6 +10,7 @@ const [loginValues, setLoginValues] = useState({email: "", password: ""})
 const [errors, setErrors] = useState({});
 // const [loginStatus, setLoginStatus] = useState();
 const [isLogged, setIsLogged] = useState(false);
+const [details, setDetails] = useState("");
 
 
 const handleLogChange = (e) => {
@@ -33,9 +34,12 @@ const handleLogChange = (e) => {
     .then((result) => result.json())
     .then((res) => {
       console.log(res.message);
-       if(res){
-        setIsLogged(true);
+       if(res.message === "wrong password" || res.message === "cannot find user"){
+        setIsLogged(false);
+        setDetails("false")
         // setLoginStatus();
+      } else {
+        setIsLogged(true);
       }
     });
   }
@@ -47,6 +51,7 @@ const handleLogChange = (e) => {
               <h1>CODE YOUR FUTURE</h1>
             <div className="signUp-wrapper login">
               <form action="/" method="POST" autoComplete="off">
+                {details === "false" && <p>Password or Username invalid</p>}
                 <div>
                   <label htmlFor="email" className="s-email">
                     Email
