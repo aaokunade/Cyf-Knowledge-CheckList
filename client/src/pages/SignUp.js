@@ -89,7 +89,6 @@ const SignUp = () => {
                   name="name"
                   value={values.name}
                   placeholder="Full Name"
-                  required
                 />
                 {errors.name && <p className="error">{errors.name}</p>}
               </div>
