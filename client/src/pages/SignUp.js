@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Validation from "./Validation";
 import { Link } from "react-router-dom";
 import SignUPSuccess from "./SignUPSuccess";
+import Footer from './Footer';
+
 
 const SignUp = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -43,6 +45,8 @@ const SignUp = () => {
         console.log(res);
         if (res.id) {
           setIsSubmitted(true);
+        } else {
+          setIsSubmitted('err');
         }
       });
     // // signUp();
@@ -66,6 +70,7 @@ const SignUp = () => {
             <div>
               <h2 className="signUp-title">Create Account</h2>
             </div>
+            {isSubmitted === 'err' && <p>Unsuccessful. Please try again.</p>}
             <form
               className="signUp-form"
               action="/"
@@ -150,24 +155,30 @@ const SignUp = () => {
                   <p className="error">{errors.password2}</p>
                 )}
               </div>
-              <div>
-                <select name="role" onChange={handleChange}>
-                  <option>Select Role</option>
-                  <option value="admin">Admin</option>
-                  <option value="mentor">Mentor</option>
-                  <option value="student">Student</option>
-                </select>
+              <div className="sign-up-dropdown">
+                  <div>
+                      <select name="role" onChange={handleChange}>
+                        <option>Select Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="mentor">Mentor</option>
+                        <option value="student">Student</option>
+                      </select>
+                      {errors.role && <p className="error">{errors.role}</p>}
+                  </div>
+                  <div>
+                    <select name="region" onChange={handleChange}>
+                      <option>Select Region</option>
+                        {/* {region.map((r, index)=>{
+                          <option  key={index} value={r}>{r}</option>
+                        })} */}
+                              
+                      <option value="West Midlands">West Midlands</option>
+                      <option value="London">London</option>
+                    </select>
+                    {errors.region && <p className="error">{errors.region}</p>}
+                  </div>
               </div>
-              <div>
-                <select name="region" onChange={handleChange}>
-					{region.map((r, index)=>{
-						<option  key = {index} value={index}>{r}</option>
-					})}
-                  <option>Select Region</option>
-                  <option value="West Midlands">West Midlands</option>
-                  <option value="London">London</option>
-                </select>
-              </div>
+              
               <div>
                 <button
                   className="signUp-btn"
@@ -184,8 +195,10 @@ const SignUp = () => {
               </div>
             </form>
           </div>
+          <Footer />
         </div>
       )}
+      
     </div>
   );
 };

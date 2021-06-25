@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import image from './Images/students.jpeg';
 import "./Home.css";
+import Footer from './Footer';
+import logo from "./Images/cyf_logo.jpeg"
 
 
 export function Home() {
@@ -27,10 +29,13 @@ export function Home() {
     <div>
       <div>
         <div className="header">
-          <span>
+          {/* <span>
             CODE <span className="span-your">YOUR</span> FUTURE
-          </span>
-          <h1>Knowledge Checklist</h1>
+          </span> */}
+          <div className="logo-image">
+            <img className="image" src={logo} alt="cyf_logo" />
+          </div>
+          <h1>Code Your Future <br></br>Knowledge Checklist</h1>
         </div>
         <div className="home-buttons">
           <button>
@@ -65,6 +70,7 @@ export function Home() {
         {/* <h1 className="message" data-qa="message">{message}</h1> */}
         {/* <Link to="/about/this/site">About</Link> */}
       </div>
+      <Footer />
     </div>
   );
 }
