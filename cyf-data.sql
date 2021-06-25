@@ -34,7 +34,7 @@ lessons VARCHAR(50)NOT NULL
 
 CREATE TABLE learningobjectives (
 id  SERIAL PRIMARY KEY,
-objectives  VARCHAR (50)NOT NULL,
+objectives  VARCHAR (500)NOT NULL,
 lesson_id   integer, --references techskills(id),
 FOREIGN KEY (lesson_id) REFERENCES techskills(id)
 );
