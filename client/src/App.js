@@ -11,11 +11,12 @@ import Student from './pages/Student';
 const App = () => (
 	<div>
 	 <Switch>
+	 	<Route path="/Student"><Student /></Route>
 		 <Route path="/" exact><Home /></Route>
 		 <Route path="/LogIn"><LogIn /></Route>
 		 <Route path="/SignUp"><SignUp /></Route>
 		 <Route><IncorrectUrlError /></Route>
-		 {/* <Route path="/Student" exact><Student /></Route> */}
+		 
 		 {/* <Route path="/about/this/site"><About /></Route> */}
 		 {/* <Route path="/" exact component={LogIn} /> */}
 	    </Switch>

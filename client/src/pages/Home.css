@@ -297,16 +297,4 @@ input {
     font-size: 1.5rem;
     margin-bottom: 2%;
 }
-
-.registered {
-    color: white;
-    text-align: center;
-    margin: auto;
-    font-size: 1.5rem;
-}
-
-/* Footer component */
-.footer {
-    text-align: center;
-    font-size: 0.7rem;;
 }
