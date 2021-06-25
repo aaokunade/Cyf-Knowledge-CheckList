@@ -26,6 +26,25 @@ router.post("/users/", (req, res) => {
 	db.query(query).then((result) => res.status(200).json(result.rows));
 });
 
+//query to display student page;
+const studentPageQuery = `SELECT lessons, objectives, competency 
+FROM techskills 
+INNER JOIN learningobjectives 
+ON techskills.id = learningobjectives.lesson_id 
+INNER JOIN mappingskills 
+ON learningobjectives.id = mappingskills.obj_id 
+INNER JOIN competencylevels 
+ON mappingskills.comp_id = competencylevels.id GROUP BY techskills, learningobjectives, competency`;
+
+const lessonsOnlyQuery = `SELECT COUNT (objectives) AS obj, lessons FROM learningobjectives INNER JOIN techskills ON  learningobjectives.lesson_id = techskills.id GROUP BY lessons`;
+
+router.get("/studentsPage", (req, res) => {
+	db.query(lessonsOnlyQuery).then((result) =>
+	 res.status(200).json(result.rows)
+	 )
+	 .catch((error) => console.error(error));
+});
+
 //query to get just one user
 // router.get('/oneUser', (req, res) => {
 // 	const user = req.body;
@@ -35,10 +54,10 @@ router.post("/users/", (req, res) => {
 
 //query to get learning objectives from database
 router.get("/classes", (req, res) => {
-	const getLesson = req.query.lesson;
-	console.log(getLesson);
+	// const getLesson = req.query.lesson;
+	// console.log(getLesson);
 	// let lessonQuery = SELECT * FROM techskills;
-	const lessonQuery = `SELECT objectives FROM learningobjectives INNER JOIN techskills ON learningobjectives.lesson_id = techskills.id WHERE techskills.lessons = '${getLesson}'`;
+	const lessonQuery = `SELECT objectives, lessons FROM learningobjectives INNER JOIN techskills ON learningobjectives.lesson_id = techskills.id GROUP BY lessons`;
 	db.query(lessonQuery).then((result) => res.status(201).send(result.rows[0])).catch((error) => console.error(error));
 });
 
@@ -47,7 +66,6 @@ router.get("/classes", (req, res) => {
 router.post("/users/signup", async(req, res) => {
 	console.log(req.body);
 	const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
-	console.log(newRole);
 	const newRoleName = req.body.name;
 	const newRoleEmail = req.body.email;
 	// const newRolePassword = req.body.password;
@@ -74,12 +92,9 @@ router.post("/users/signup", async(req, res) => {
 	} else if(newRoleLocation === "Cape Town"){
 		newRegionID = 5;
 	}
-	console.log(newRegionID);
-	console.log(newRoleID);
 	const insertUserQuery = "INSERT INTO users (name, email, password, roles_id, region_id) VALUES ($1, $2, $3, $4, $5) RETURNING ID";
 
 	try {
-		const salt = await bcrypt.genSalt();
 		const newRolePassword = await bcrypt.hash(req.body.password, 10);
 		if (!regExpression.exec(newRoleName)) {
 			res.status(500).send("Fill in correct field");
@@ -96,7 +111,7 @@ router.post("/users/signup", async(req, res) => {
 
 //router to get all regions
 router.get('/regions', (req, res)=>{
-	const regionQuery = `SELECT location FROM regions`;
+	const regionQuery = `SELECT location FROM region`;
 	db.query(regionQuery).then((result) => res.status(200).json(result.rows));
 })
 
@@ -107,13 +122,15 @@ router.post("/users/login", async(req,res) => {
 	const userPassword = req.body.password;
 	const loginQuery = `SELECT name, password FROM users WHERE email = '${userEmail}'`;
 	db.query(loginQuery).then((result) => {res.status(200);
-		const hashed = result.rows[0]["password"];
-		const userName = result.rows[0]["name"];
-		console.log(userName);
-		console.log(hashed);
-		if(!hashed){
+		console.log(result.rows[0]);
+		// console.log(userName);
+		// console.log(hashed);
+		const loginResult = result.rows[0];
+		if(loginResult === undefined){
 			return res.status(400).json({ "message": "cannot find user" });
 		} try {
+			const hashed = loginResult["password"];
+			const userName = loginResult["name"];
 			const isValid = bcrypt.compareSync(userPassword, hashed);
 			console.log(isValid);
 			if ( isValid ){

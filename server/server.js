@@ -12,8 +12,6 @@ server.on("listening", () => {
 	console.log(`Listening on ${bind}`);
 });
 
-console.log(process.env.NODE_ENV);
-
 process.on("SIGTERM", () => server.close(() => disconnectDb()));
 
 connectDb().then(() => server.listen(port));
