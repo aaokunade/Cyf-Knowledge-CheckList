@@ -4,8 +4,6 @@ import { Router } from "express";
 import db from "./db";
 const bcrypt = require ("bcrypt");
 import app from "./app";
-// const cors = require("cors");
-// app.use(cors());
 
 const router = new Router();
 const allUsersQuery = "SELECT * FROM users";
@@ -26,39 +24,25 @@ router.post("/users/", (req, res) => {
 	db.query(query).then((result) => res.status(200).json(result.rows));
 });
 
+//query to get the mapping skills
+// const studentPageQuery = `SELECT lessons, objectives 
+// FROM techskills 
+// INNER JOIN learningobjectives 
+// ON techskills.id = learningobjectives.lesson_id 
+// INNER JOIN mappingskills 
+// ON learningobjectives.id = mappingskills.obj_id ORDER BY lessons`;
+
 //query to display student page;
-const studentPageQuery = `SELECT lessons, objectives, competency 
-FROM techskills 
-INNER JOIN learningobjectives 
-ON techskills.id = learningobjectives.lesson_id 
-INNER JOIN mappingskills 
-ON learningobjectives.id = mappingskills.obj_id 
-INNER JOIN competencylevels 
-ON mappingskills.comp_id = competencylevels.id GROUP BY techskills, learningobjectives, competency`;
-
-const lessonsOnlyQuery = `SELECT COUNT (objectives) AS obj, lessons FROM learningobjectives INNER JOIN techskills ON  learningobjectives.lesson_id = techskills.id GROUP BY lessons`;
-
+const lessonsOnlyQuery = `SELECT objectives, lessons FROM learningobjectives INNER JOIN techskills ON  learningobjectives.lesson_id = techskills.id ORDER BY lessons`;
 router.get("/studentsPage", (req, res) => {
 	db.query(lessonsOnlyQuery).then((result) =>
-	 res.status(200).json(result.rows)
-	 )
-	 .catch((error) => console.error(error));
+	 res.status(200).json(result.rows)).catch((error) => console.error(error));
 });
 
-//query to get just one user
-// router.get('/oneUser', (req, res) => {
-// 	const user = req.body;
-// 	const getUserById = `SELECT name FROM users WHERE id=1$`;
-// 	if(user.name )
-// })
-
-//query to get learning objectives from database
-router.get("/classes", (req, res) => {
-	// const getLesson = req.query.lesson;
-	// console.log(getLesson);
-	// let lessonQuery = SELECT * FROM techskills;
-	const lessonQuery = `SELECT objectives, lessons FROM learningobjectives INNER JOIN techskills ON learningobjectives.lesson_id = techskills.id GROUP BY lessons`;
-	db.query(lessonQuery).then((result) => res.status(201).send(result.rows[0])).catch((error) => console.error(error));
+//query to get all lessons from database
+router.get("/lessons", (req, res) => {
+	const lessonQuery = `SELECT lessons FROM techskills`;
+	db.query(lessonQuery).then((result) => res.status(201).send(result.rows)).catch((error) => console.error(error));
 });
 
 //query to post data at creation of account to database
