@@ -35,19 +35,16 @@ export function Home() {
           <div className="logo-image">
             <img className="image" src={logo} alt="cyf_logo" />
           </div>
-          <h1>Code Your Future <br></br>Knowledge Checklist</h1>
+          <h2>Knowledge Checklist</h2>
         </div>
         <div className="home-buttons">
-          <button>
             <Link className="link" to="/SignUp">
               Sign Up
             </Link>
-          </button>
-          <button>
             <Link className="link" to="/LogIn">
               Login
             </Link>
-          </button>
+      
           {/* <button>Admin</button> */}
         </div>
         <div className="main">
@@ -70,7 +67,17 @@ export function Home() {
         {/* <h1 className="message" data-qa="message">{message}</h1> */}
         {/* <Link to="/about/this/site">About</Link> */}
       </div>
-      <Footer />
+      <div className="home-footer">
+           <div className="home-links">
+                <a href="https://codeyourfuture.io/" target="_blank">Code Your Future</a>
+                <a href="https://www.facebook.com/codeyourfuture.io" target="_blank">FaceBook</a>
+                <a href="https://twitter.com/CodeYourFuture_" target="_blank">Twitter</a>
+                <a href="https://www.linkedin.com/company/codeyourfuture" target="_blank">LinkedIn</a>
+                <a href="mailto:contact@codeyourfuture.io" target="_blank">Email</a>
+            </div>
+            <p>Copyright &copy; 2021 Code Your Future</p>  
+      </div>
+           
     </div>
   );
 }
