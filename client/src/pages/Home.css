@@ -1,16 +1,23 @@
 body {
-    font-family: monospace;
+    font-family: 'Roboto', sans-serif !important;
+    margin: 0;
 }
 
 /* Home component */
 .header {
     background-color: rgb(214, 214, 211);
-    padding: 1%;
     display:flex;
+    align-items: center;
+    padding: 2%;
 }
 
-.header h1 {
-    margin-left: 30%;
+.header h2 {
+    text-align: center;
+    margin-left: 25%;
+}
+
+.header h2:hover {
+    color: red;
 }
 
 
@@ -19,10 +26,9 @@ body {
     width: 1%;
 }
 
-.home-buttons button {
-    width: 10%;
-    height: 50px;
-    border-color: red;
+.home-buttons .link {
+    padding: 1%;
+    border: 2px solid red;
     background-color: white;
     margin-right: 2%;
     margin-top: 1%;
@@ -36,7 +42,7 @@ body {
     z-index: 1;
 }
 
-.home-buttons button:before {
+.home-buttons .link:before {
     transition: 0.5s all ease;
     position: absolute;
     top: 0;
@@ -48,7 +54,7 @@ body {
     background-color: red;
 } 
 
-.home-buttons button:hover:before {
+.home-buttons .link:hover:before {
     transition: 0.5s all ease;
     left: 0;
     right: 0;
@@ -64,18 +70,17 @@ body {
 .welcome-text {
     width: 50%;
     margin-left: 3%;
-    margin-right: 3%;
+    margin-right: 2%;
     font-size: 1.5rem;
-    font-family: cursive;
 }
 
 .welcome-text::first-line {
     color: red;
 }
 
-.span-your {
+/* .span-your {
     color: red;
-}
+} */
 
 .main {
     display: flex;
@@ -84,6 +89,8 @@ body {
 
 .home-image {
     width: 50%;
+    margin-left: 2%;
+    margin-right: 3%;
 }
 
 .image {
@@ -92,7 +99,7 @@ body {
 }
 
 .logo-image {
-    width: 200px;
+    width: 15%;
     height: auto;
 }
 
@@ -209,12 +216,12 @@ input {
 /* Student page */
 
 .student-page {
-    margin: 5%;
+    margin: 2%;
     margin-top: 10%;
 }
 
 .student-page p {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .skills-btn-container {
@@ -272,6 +279,14 @@ input {
     color: black;
 }
 
+.obj {
+    width: 50%;
+}
+
+.comp-btn {
+    width: 50%;
+}
+
 /* SignUPSuccess component */
 .signUp-success h1 {
     text-align: center;
@@ -297,3 +312,44 @@ input {
     font-size: 1.5rem;
     margin-bottom: 2%;
 }
+
+.registered {
+    color: white;
+    text-align: center;
+    margin: auto;
+    font-size: 1.5rem;
+}
+
+/* Footer component */
+.footer {
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 2%;
+    background-color: rgb(241, 138, 138);
+}
+
+/* Home Component Footer */
+.home-links {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background-image: url();
+}
+
+.home-footer p {
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+a {
+    text-decoration: none;
+    color: red;
+}
+
+/* media queries */
+
+/*Small smartphones [325px -> 425px]*/
+/* @media only screen and (max-width: 425px){
+	
+} */
