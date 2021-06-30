@@ -69,11 +69,11 @@ export function Home() {
       </div>
       <div className="home-footer">
            <div className="home-links">
-                <a href="https://codeyourfuture.io/" target="_blank">Code Your Future</a>
-                <a href="https://www.facebook.com/codeyourfuture.io" target="_blank">FaceBook</a>
-                <a href="https://twitter.com/CodeYourFuture_" target="_blank">Twitter</a>
-                <a href="https://www.linkedin.com/company/codeyourfuture" target="_blank">LinkedIn</a>
-                <a href="mailto:contact@codeyourfuture.io" target="_blank">Email</a>
+                <a href="https://codeyourfuture.io/" target="_blank"><i class="fa fa-home"></i></a>
+                <a href="https://www.facebook.com/codeyourfuture.io" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                <a href="https://twitter.com/CodeYourFuture_" target="_blank"><i class="fa fa-twitter-square"></i></a>
+                <a href="https://www.linkedin.com/company/codeyourfuture" target="_blank"><i class="fa fa-linkedin-square"></i></a>
+                <a href="mailto:contact@codeyourfuture.io" target="_blank"><i className="fa fa-envelope" /></a>
             </div>
             <p>Copyright &copy; 2021 Code Your Future</p>  
       </div>
