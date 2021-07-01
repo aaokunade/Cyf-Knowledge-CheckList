@@ -8,7 +8,7 @@ body {
     background-color: rgb(214, 214, 211);
     display:flex;
     align-items: center;
-    padding: 2%;
+    padding: 1.3%;
 }
 
 .header h2 {
@@ -27,9 +27,10 @@ body {
 }
 
 .home-buttons .link {
-    padding: 1%;
+    padding: 0.5%;
     border: 2px solid red;
     background-color: white;
+    color: black;
     margin-right: 2%;
     margin-top: 1%;
     border-radius: 10%;
@@ -115,7 +116,7 @@ body {
 .container .login {
     margin-top: 5%;
     height: 300px;
-    width:40%;
+    width:30%;
 }
 
 .login-btn {
@@ -127,17 +128,41 @@ body {
 }
 
 .login-btn button {
-    padding: 3%;
+    padding: 2%;
     border: none;
-    border-radius: 10%;
-    cursor: pointer;
+    background-color: black;
+    width: 30%;
+    height: 50px;
     font-size: 1rem;
-}
-
-.login-btn button:hover {
-    background-color: red;
+    cursor: pointer;
+    margin-right: 4%;
+    margin-top: 1%;
+    border-radius: 10%;
     color: white;
 }
+
+.link_home {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    border: none;
+    background-color: black;
+    width: 25%;
+    height: 43px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 1%;
+    margin-top: 1%;
+    border-radius: 10%;
+    color: white;
+}
+
+/* .login-btn button:hover {
+    background-color: red;
+    color: white;
+} */
 
 /* both forms */
 label {
@@ -164,12 +189,16 @@ input {
     margin: auto;
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 40%;
     background-color: rgb(206, 203, 201);
     padding: 1.5%;
     text-align: center;
-    box-shadow: 7px 10px rgb(87, 85, 85);
+    box-shadow: 7px 10px rgb(88, 87, 87);
     border-radius: 10%;
+}
+
+.signUp-container .header {
+    margin-bottom: 2%;
 }
 
 .signUp-btn {
@@ -184,9 +213,17 @@ input {
     color: white;
 }
 
-.signUp-link {
+.link-home {
     text-decoration: none;
     color: white;
+    background-color: black;
+    width: 20%;
+    height: 50px;
+    font-size: 1rem;
+    margin-right: 4%;
+    margin-top: 1%;
+    border-radius: 10%;
+    padding: 3.5%;
 }
 
 .sign-up-dropdown {
@@ -208,16 +245,27 @@ input {
    box-shadow: 0 0 15px 10px rgba(8, 8, 8, 0.06);
 } 
 
+.login-signup-link {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    margin-top: 5%;
+    text-decoration: underline;
+}
+
+.login-signup {
+    color:red;
+    margin-left: 0.5%;
+}
+
 /* Validation */
 .error {
   color: red;
 }
 
 /* Student page */
-
 .student-page {
-    margin: 2%;
-    margin-top: 10%;
+    margin-top: 0;
 }
 
 .student-page p {
@@ -225,16 +273,18 @@ input {
 }
 
 .skills-btn-container {
-    margin-top: 10%;
+    margin: auto;
+    width: 50%;
 }
 
 .skills-btn {
-    width: 15%;
+    width: 20%;
     padding: 1%;
-    margin-right: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
     margin-bottom: 10%;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1rem;
     border-radius: 10%;
     border: none;
     box-shadow: 5px 7px rgb(94, 89, 89);
@@ -245,11 +295,12 @@ input {
      background-color: white;
      border: none;
      box-shadow: 4px 6px rgb(94, 89, 89);
+     cursor: pointer;
 }
 
 .skills-btn:hover {
     background-color: red;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 .competency-level {
@@ -259,12 +310,16 @@ input {
 
 .skill-section {
     margin-top: 10%;
+    /* margin-left: 2%;
+    margin-right: 2%; */
 }
 
 .student-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 .student-page h1 {
@@ -272,6 +327,7 @@ input {
     background-color: whitesmoke;
     padding: 2%;
     color: red;
+    margin: 0;
 }
 
 .skills-btn-container a {
@@ -325,16 +381,12 @@ input {
     text-align: center;
     font-size: 0.8rem;
     padding: 2%;
-    background-color: rgb(241, 138, 138);
 }
 
 /* Home Component Footer */
 .home-links {
-    display: flex;
-    justify-content: space-evenly;
+    text-align: center;
     padding-top: 5%;
-    padding-bottom: 5%;
-    background-image: url();
 }
 
 .home-footer p {
@@ -342,8 +394,14 @@ input {
     font-size: 0.8rem;
 }
 
-a {
+.icons-home {
     text-decoration: none;
+    color: black;
+    font-size: 1.5rem;
+    margin-right: 1%;
+}
+
+.icons-home:hover {
     color: red;
 }
 
