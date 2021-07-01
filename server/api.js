@@ -27,9 +27,11 @@ router.get("/studentsPage", (req, res) => {
 		console.log(result.rows);
 		result.rows.forEach((row) =>{
 			if(!lessonsArray.hasOwnProperty(row.lessons)){
+				// lessonsArray[row.lessons] = [row.objectives];
 				lessonsArray[row.lessons] = [{objectives:row.objectives, id:row.id}];
 			} else {
 				lessonsArray[row.lessons].push({objectives:row.objectives, id:row.id});
+				// lessonsArray[row.lessons].push(row.objectives);
 			}
 		});
 		res.status(200).json(lessonsArray);
@@ -137,7 +139,7 @@ router.post("/users/login", async(req,res) => {
 	console.log(req.body);
 	const userEmail = req.body.email;
 	const userPassword = req.body.password;
-	const loginQuery = `SELECT name, password, role_id FROM users WHERE email = '${userEmail}'`;
+	const loginQuery = `SELECT name, password, roles_id FROM users WHERE email = '${userEmail}'`;
 	db.query(loginQuery).then((result) => {res.status(200);
 		const loginResult = result.rows[0];
 		if(loginResult === undefined){
@@ -145,7 +147,7 @@ router.post("/users/login", async(req,res) => {
 		} try {
 			const hashed = loginResult["password"];
 			const userName = loginResult["name"];
-			const userRole = loginResult["role_id"];
+			const userRole = loginResult["roles_id"];
 			const isValid = bcrypt.compareSync(userPassword, hashed);
 			console.log(isValid);
 			if ( isValid ){
