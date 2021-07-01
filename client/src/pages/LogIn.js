@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Validation from "./Validation";
 import Footer from './Footer';
 import Student from './Student';
+import logo from "./Images/cyf_logo.jpeg";
 
 
 function LogIn() {
@@ -48,7 +49,12 @@ const handleLogChange = (e) => {
       {isLogged ? <Student /> 
         :
           <div className="container">
-              <h1>CODE YOUR FUTURE</h1>
+              <div className="header">
+                <div className="logo-image">
+                  <img className="image" src={logo} alt="cyf_logo" />
+                </div>
+                <h2>login</h2>
+            </div>
             <div className="signUp-wrapper login">
               <form action="/" method="POST" autoComplete="off">
                 {details === "false" && <p>Password or Username invalid</p>}
@@ -83,22 +89,21 @@ const handleLogChange = (e) => {
                   />
                   {errors.password && <p className="error">{errors.password}</p>}
                 </div>
-                <div>
+                <div className="login-btn">
                   <button type="submit" onClick={handleLoginFormSubmit}>
-                    {/* <Link className="link" to="/Student"> */}
                       Login
-                    {/* </Link> */}
                     </button>
                   <button>Forgot Password</button>
-                  <button>
-                    <Link className="link" to="/">
+                    <Link className="link_home" to="/">
                       Cancel
                     </Link>
-                  </button>
                 </div>
               </form>
             </div>
             {/* <h2>{loginStatus}</h2> */}
+            <p className="login-signup-link">Don't have an account. <Link className="link login-signup" to="/SignUp">
+              Sign Up
+            </Link></p>
             <Footer />
           </div>
       }
