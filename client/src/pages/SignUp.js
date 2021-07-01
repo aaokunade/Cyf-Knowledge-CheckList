@@ -3,6 +3,7 @@ import Validation from "./Validation";
 import { Link } from "react-router-dom";
 import SignUPSuccess from "./SignUPSuccess";
 import Footer from './Footer';
+import logo from "./Images/cyf_logo.jpeg";
 
 
 const SignUp = () => {
@@ -19,11 +20,13 @@ const SignUp = () => {
   });
   const [errors, setErrors] = useState({});
   //fetch data
-// 	useEffect(()=> {
-// 	fetch("http://127.0.0.1:3000")
-//       .then((res) => res.json())
-//       .then((region) => setRegion(region));
-// },[])
+	useEffect(()=> {
+	fetch("/api/regions")
+      .then((res) => res.json())
+      .then((region) => setRegion(region));
+},[])
+
+console.log(region)
 
   const localUrl = "http://127.0.0.1:3000/";
   const prodUrl = "/";
@@ -49,7 +52,6 @@ const SignUp = () => {
           setIsSubmitted('err');
         }
       });
-    // // signUp();
   }
 
   const handleChange = (event) => {
@@ -66,6 +68,12 @@ const SignUp = () => {
         <SignUPSuccess />
       ) : (
         <div className="signUp-container">
+            <div className="header">
+                <div className="logo-image">
+                  <img className="image" src={logo} alt="cyf_logo" />
+                </div>
+                <h2>Sign up</h2>
+            </div>
           <div className="signUp-wrapper">
             <div>
               <h2 className="signUp-title">Create Account</h2>
@@ -167,12 +175,9 @@ const SignUp = () => {
                   <div>
                     <select name="region" onChange={handleChange}>
                       <option>Select Region</option>
-                        {/* {region.map((r, index)=>{
-                          <option  key={index} value={r}>{r}</option>
-                        })} */}
-                              
-                      <option value="West Midlands">West Midlands</option>
-                      <option value="London">London</option>
+                        {region.map((r, index)=> (
+                          <option  key={index} value={r.location}>{r.location}</option>
+                        ))}
                     </select>
                     {errors.region && <p className="error">{errors.region}</p>}
                   </div>
@@ -186,14 +191,17 @@ const SignUp = () => {
                 >
                   Sign Up
                 </button>
-                <button className="signUp-btn">
-                  <Link className="signUp-link" to="/">
+                  <Link className="link-home" to="/">
                     Cancel
                   </Link>
-                </button>
               </div>
             </form>
           </div>
+           <p className="login-signup-link">Already have an account.
+           <Link className="link login-signup" to="/LogIn">
+              Login
+            </Link>
+            </p>
           <Footer />
         </div>
       )}
