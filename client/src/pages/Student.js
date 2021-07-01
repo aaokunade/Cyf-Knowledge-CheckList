@@ -29,6 +29,7 @@ const Student = () => {
             
 			<div className="skills-btn-container">
 				{Object.keys(lessons).map((lesson, index) => (
+                    
 					<button className="skills-btn"  key = {index}><a href="#html-css" >{lesson}</a></button>
 				))}
 			</div>
@@ -37,7 +38,7 @@ const Student = () => {
 					<h2>{lesson}</h2>
 					{lessons[lesson].map((obj, index) =>(
 						<div className="competency-level"  key = {index}>
-							<p>{obj}</p>
+							<p>{obj.objectives}</p>
 							<button>Not Confident</button>
 							<button>Needs Revision</button>
 							<button>Confident</button>
