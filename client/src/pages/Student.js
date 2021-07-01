@@ -6,9 +6,9 @@ import Footer from './Footer';
 
 
 const Student = () => {
-	const [lessons, setLessons] = useState({})
+	const [lessons, setLessons] = useState({});
 	useEffect(() => {
-		fetch('api/studentsPage')
+		fetch('/api/studentsPage')
 			.then((result) => result.json())
 			.then((lessons) => {
 				console.log(lessons);
