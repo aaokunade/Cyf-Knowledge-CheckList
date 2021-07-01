@@ -261,6 +261,7 @@ input {
 /* Validation */
 .error {
   color: red;
+  margin: 0;
 }
 
 /* Student page */
@@ -306,12 +307,13 @@ input {
 .competency-level {
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 5%;
 }
 
 .skill-section {
     margin-top: 10%;
-    /* margin-left: 2%;
-    margin-right: 2%; */
+    margin-left: 5%;
+    margin-right: 2%;
 }
 
 .student-header {
@@ -341,6 +343,28 @@ input {
 
 .comp-btn {
     width: 50%;
+    margin-right: -2%;
+    margin-left: -5%;
+}
+
+.comp-btn button {
+    margin-right: 4%;
+    padding: 2%;
+    border: 2px solid black;
+}
+
+.student-log-out-link {
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    width: 4rem;
+    font-size: 1rem;
+    margin-top: 1%;
+    border-radius: 10%;
+    padding: 0.6%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* SignUPSuccess component */
