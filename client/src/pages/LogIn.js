@@ -38,7 +38,7 @@ const handleLogChange = (e) => {
         setIsLogged(false);
         setDetails("false")
         // setLoginStatus();
-      } else {
+      } else if(res.message === 2) {
         setIsLogged(true);
       }
     });
