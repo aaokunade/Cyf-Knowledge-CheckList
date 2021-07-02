@@ -45,6 +45,12 @@ router.get("/lessons", (req, res) => {
 		.catch((error) => console.error(error));
 });
 
+// query to get all competency levels
+router.get("/competency", (req, res) => {
+	const competencyQuery = `SELECT * FROM competencylevels`;
+	db.query(competencyQuery).then((result) => res.status(201).send(result.rows))
+		.catch((error) => console.error(error));
+});
 router.post("/studentsformentor", (req, res) => {
 	const selectedStudent = req.body.name;
 	const getStudentsForMentorQuery = `SELECT name FROM users WHERE roles_id = 2`;
