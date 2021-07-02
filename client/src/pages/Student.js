@@ -30,11 +30,11 @@ const Student = () => {
 			<div className="skills-btn-container">
 				{Object.keys(lessons).map((lesson, index) => (
                     
-					<button className="skills-btn"  key = {index}><a href="#html-css" >{lesson}</a></button>
+					<button className="skills-btn"  key = {index}><a href={"#" + lesson} >{lesson}</a></button>
 				))}
 			</div>
 			{Object.keys(lessons).map((lesson, index) => (
-				<div className="skill-section" id="html-css"  key = {index}>
+				<div className="skill-section" id= {lesson} key = {index}>
 					<h2>{lesson}</h2>
 					{lessons[lesson].map((obj, index) =>(
 						<div className="competency-level"  key = {index}>
