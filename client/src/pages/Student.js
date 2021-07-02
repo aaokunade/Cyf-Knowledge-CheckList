@@ -64,7 +64,7 @@ console.log(updateCompetency);
 					<h2>{lesson}</h2>
 					{lessons[lesson].map((obj, index) =>(
 						<div className="competency-level"  key = {index}>
-							<p className="obj">{obj}</p>
+							<p className="obj">{obj.objectives}</p>
                             <div className="comp-btn">
                                 {competency.map((comp) => (
                                     
