@@ -151,7 +151,7 @@ router.post("/users/login", async(req,res) => {
 			const isValid = bcrypt.compareSync(userPassword, hashed);
 			console.log(isValid);
 			if ( isValid ){
-				res.json({ "message": userName });
+				res.json({ "message": userRole });
 				//direct to the home page
 			}else{
 				res.status(401).json({ "message":"wrong password" });
