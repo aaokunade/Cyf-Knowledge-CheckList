@@ -21,8 +21,6 @@ if(process.env.NODE_ENV === "development"){
 }
 
 
-// console.log(process.env.DATABASE_URL, dbUrl);
-
 export const connectDb = async () => {
 	let client;
 	try {

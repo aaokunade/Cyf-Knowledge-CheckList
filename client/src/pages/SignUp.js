@@ -25,16 +25,14 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((region) => setRegion(region));
 },[])
-
-console.log(region)
-
   const localUrl = "http://127.0.0.1:3000/";
   const prodUrl = "/";
 
   function handleFormSubmit(event) {
     event.preventDefault();
+    console.log(Validation(values));
     setErrors(Validation(values));
-    console.log(values);
+    if ( Object.keys(Validation(values)).length === 0){
     fetch(`${prodUrl}api/users/signup/`, {
       method: "POST",
       headers: {
@@ -46,12 +44,14 @@ console.log(region)
       .then((result) => result.json())
       .then((res) => {
         console.log(res);
-        if (res.id) {
+        if (res.message === "Account created") {
           setIsSubmitted(true);
         } else {
-          setIsSubmitted('err');
+          setIsSubmitted(false);
         }
-      });
+      });}else{
+        setIsSubmitted(false);
+      }
   }
 
   const handleChange = (event) => {

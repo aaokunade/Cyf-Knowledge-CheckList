@@ -5,6 +5,7 @@ drop table if exists techskills cascade;
 drop table if exists learningobjectives cascade;
 drop table if exists competencylevels cascade;
 drop table if exists mappingskills cascade;
+drop table if exists tokens cascade;
 
 CREATE TABLE region (
 id  SERIAL PRIMARY KEY,
@@ -25,6 +26,12 @@ roles_id    integer,
 region_id   integer,
 FOREIGN KEY (region_id) REFERENCES region(id),
 FOREIGN KEY (roles_id)  REFERENCES roles(id)
+);
+
+CREATE TABLE tokens (
+token VARCHAR(70) PRIMARY KEY,
+users_id integer,
+FOREIGN KEY (users_id) REFERENCES users(id)
 );
 
 CREATE TABLE techskills (
