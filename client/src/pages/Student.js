@@ -71,7 +71,7 @@ const Student = (props) => {
 					{lessons[lesson].map((obj, index) =>(
 						<div className="competency-level"  key = {index}>
 							<p className="obj">{obj.objectives}</p>
-                            <div className="comp-btn">
+                        <div className="comp-btn">
                                 {competency.map((comp) => (
                                     
                                     <button key={comp.id} onClick={() =>  updateCompetencyOnClick(lesson, obj.id, comp.id)}>{comp.competency}</button>

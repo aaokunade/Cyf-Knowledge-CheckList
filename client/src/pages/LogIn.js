@@ -37,7 +37,7 @@ const handleLogChange = (e) => {
       console.log(res.message);
        if(res.message === "wrong password" || res.message === "cannot find user"){
         setIsLogged(false);
-        setDetails({errorMessage:res.message, userId:""})
+        setDetails({ errorMessage:res.message, userId:"" })
         // setLoginStatus();
       } else if(res.message === 2) {
         setIsLogged(true);
