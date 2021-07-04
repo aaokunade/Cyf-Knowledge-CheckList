@@ -6,9 +6,9 @@ import Footer from './Footer';
 import logo from "./Images/cyf_logo.jpeg";
 
 
-const Student = () => {
+const Student = (props) => {
 	const [lessons, setLessons] = useState({})
-    const [updateCompetency, setUpdateCompetency] = useState({lesson: "", index: "", competencyId: 0});
+    const [updateCompetency, setUpdateCompetency] = useState({lesson: "", obj_id: 0, competencyId: 0, user:{}});
     const [competency , setCompetency] = useState([]);
 
 
@@ -18,11 +18,9 @@ const Student = () => {
         .then((result) => result.json())
         .then((competency) => {
             setCompetency(competency);
-            console.log(competency)
             fetch('api/studentsPage')
 			.then((result) => result.json())
 			.then((lessons) => {
-				// console.log(lessons);
 				setLessons(lessons)
 			})
         })
@@ -31,13 +29,21 @@ const Student = () => {
 
 
 // to get the button's text to update
-    const updateCompetencyOnClick = (lesson, index, competencyId) => {
-        
-       setUpdateCompetency({lesson: lesson, index: index, competencyId: competencyId});
-        console.log(competencyId)
+    const updateCompetencyOnClick = (lesson, obj_id, competencyId) => {        
+       setUpdateCompetency({lesson: lesson, obj_id: obj_id, competencyId: competencyId, user:props.user});
+        fetch(`/api//mappingskills`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updateCompetency),
+        })
+          .then((result) => result.json())
+          .then((res) => {
+            console.log(res);
+          });
     };
-
-console.log(updateCompetency);
 
 	return (
 		<div className="student-page">
@@ -48,7 +54,7 @@ console.log(updateCompetency);
                 <h2>Student</h2>
             </div>
 			<div className="student-header">
-				<h2>Name</h2>
+				<h2>{props.user.userName}</h2>
 				<Link className="link student-log-out-link" to="/">
                   Log out
 				</Link>
@@ -68,7 +74,7 @@ console.log(updateCompetency);
                             <div className="comp-btn">
                                 {competency.map((comp) => (
                                     
-                                    <button key={comp.id} onClick={() =>  updateCompetencyOnClick(lesson, index, comp.id)}>{comp.competency}</button>
+                                    <button key={comp.id} onClick={() =>  updateCompetencyOnClick(lesson, obj.id, comp.id)}>{comp.competency}</button>
                                 ))}
                             </div>
 						</div>
