@@ -5,6 +5,8 @@ const Validation = (values) => {
 
   if (!values.name) {
     errors.name = "Name is required.";
+  } else if (values.name.toString().trim().length === 0){
+    errors.name = "Valid Name is required.";
   }
   if (!values.email) {
     errors.email = "Email is required.";
