@@ -11,10 +11,10 @@ import Student from './pages/Student';
 const App = () => (
 	<div>
 	 <Switch>
-	 	<Route path="/Student"><Student /></Route>
+	 	<Route path="/student"><Student /></Route>
 		 <Route path="/" exact><Home /></Route>
-		 <Route path="/LogIn"><LogIn /></Route>
-		 <Route path="/SignUp"><SignUp /></Route>
+		 <Route path="/login"><LogIn /></Route>
+		 <Route path="/sign-up"><SignUp /></Route>
 		 <Route><IncorrectUrlError /></Route>
 		 
 		 {/* <Route path="/about/this/site"><About /></Route> */}
