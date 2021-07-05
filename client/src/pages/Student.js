@@ -8,44 +8,49 @@ import logo from "./Images/cyf_logo.jpeg";
 
 const Student = (props) => {
 	const [lessons, setLessons] = useState({})
-    const [updateCompetency, setUpdateCompetency] = useState({lesson: "", obj_id: 0, competencyId: 0, user:{}});
+    const [updateCompetency, setUpdateCompetency] = useState({ lesson: "", obj_id: 0, competencyId: 0, user:{} });
     const [competency , setCompetency] = useState([]);
-
 
 // to render skills and objectives
 	useEffect(() => {
-        fetch('api/competency')
+        fetch("api/competency")
         .then((result) => result.json())
         .then((competency) => {
-            setCompetency(competency);
-            fetch('api/studentsPage')
+            setCompetency(competency);       
+            fetch("api/students-page", {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ "userId":props.user.userId }),
+              })
 			.then((result) => result.json())
 			.then((lessons) => {
-				setLessons(lessons)
-			})
-        })
-		
-	}, [])
-
+				setLessons(lessons)                
+			})        
+    })
+	}, [props])
 
 // to get the button's text to update
-    const updateCompetencyOnClick = (lesson, obj_id, competencyId) => {        
-       setUpdateCompetency({lesson: lesson, obj_id: obj_id, competencyId: competencyId, user:props.user});
-        fetch(`/api//mappingskills`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updateCompetency),
-        })
-          .then((result) => result.json())
-          .then((res) => {
-            console.log(res);
-          });
-    };
+const updateCompetencyOnClick = (lesson, obj_id, competencyId) => {        
+  setUpdateCompetency({lesson: lesson, obj_id: obj_id, competencyId: competencyId, user:props.user});
+   fetch(`/api/mappingskills`, {
+     method: "POST",
+     headers: {
+       Accept: "application/json",
+       "Content-Type": "application/json",
+     },
+     body: JSON.stringify(updateCompetency),
+   })
+     .then((result) => result.json())
+     .then((res) => {
+       console.log(res);
+     });
+};
 
-	return (
+
+  	return (
 		<div className="student-page">
             <div className="header">
                 <div className="logo-image">
