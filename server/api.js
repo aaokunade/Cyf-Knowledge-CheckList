@@ -177,6 +177,7 @@ router.get("/regions", (req, res)=>{
 
 //---------------query to update and insert the learning objectives in mappingskills;----------------
 router.post("/mappingskills", function (req, res) {
+	console.log(req.body);
 	const insertMappingskillsQuery = "INSERT INTO mappingskills (users_id, obj_id, comp_id) VALUES ($1, $2, $3) RETURNING ID";
 	const updateQuery = "UPDATE mappingskills SET comp_id=$1 WHERE users_id=$2 AND obj_id =$3";
 	const user_id = req.body.user.userId;
@@ -184,6 +185,7 @@ router.post("/mappingskills", function (req, res) {
 	const comp_id = req.body.competencyId;
 	const obj_id = req.body.obj_id;
 	const checkUpdate = `SELECT EXISTS(SELECT * FROM mappingskills WHERE users_id = '${user_id}' AND obj_id = '${obj_id}')`;
+
 	db.query(checkUpdate).then((result)=>{
 		if(result.rows[0].exists){
 			db.query(updateQuery, [comp_id, user_id, obj_id])
@@ -194,7 +196,9 @@ router.post("/mappingskills", function (req, res) {
 				.then((result) => res.json({ "message":`mappingskills ${user_id} inserted!` }))
 				.catch((e) => res.status(500).json({"message":e}));
 		}
+
 	}).catch((e) => res.status(500).json({ "message":e }));
+
 });
 
 
