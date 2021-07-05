@@ -29,23 +29,25 @@ router.get("/allUsers", (req, res) =>{
 
 //---------------------query to display student page;-------------------------------------------
 
-const lessonsOnlyQuery = `SELECT objectives, learningobjectives.id as id, lessons 
-FROM learningobjectives 
-INNER JOIN techskills ON  learningobjectives.lesson_id = techskills.id ORDER BY lessons`;
-
-router.get("/studentsPage", (req, res) => {
-	db.query(lessonsOnlyQuery).then((result) => {
-		let lessonsArray = {};
-		result.rows.forEach((row) =>{
-			if(!lessonsArray.hasOwnProperty(row.lessons)){
-				lessonsArray[row.lessons] = [{objectives:row.objectives, id:row.id}];
-			} else {
-				lessonsArray[row.lessons].push({objectives:row.objectives, id:row.id});
-			}
-		});
-		res.status(200).json(lessonsArray);
-	}).catch((e) => res.status(500).json({"message":e}));
-});
+// const selectedStudentQuery = `SELECT competency,users_id, lessons, objectives, name 
+	// FROM competencylevels 
+	// INNER JOIN mappingskills ON competencylevels.id = mappingskills.comp_id 
+	// INNER JOIN users ON users.id = mappingskills.users_id 
+	// INNER JOIN learningobjectives ON mappingskills.obj_id = learningobjectives.id 
+	// INNER JOIN techskills ON learningobjectives.lesson_id = techskills.id 
+	// WHERE mappingskills.users_id = '${user_id}'`;
+// db.query(selectedStudentQuery).then((result) => {
+// 	let lessonsObject = {};
+// 	console.log(result.rows[0]);
+// 	result.rows.forEach((row) =>{
+// 		if(lessonsObject.hasOwnProperty(row.name)){
+// 			lessonsObject[row.name].push({ lessons:row.lessons, objectives:row.objectives, competency:row.competency });
+// 		} else {
+// 			lessonsObject[row.name] = [ {lessons:row.lessons, objectives:row.objectives, competency:row.competency }];
+// 		}
+// 	});
+// 	res.status(200).json(lessonsObject);
+// }).catch((e) => console.error(e));
 
 //---------------------query to get all lessons from database------------------------------------
 
@@ -70,32 +72,60 @@ router.get("/getstudentsonly", (req, res) => {
 		.catch((e) => res.status(500).json({ "message":e }));
 });
 
-// -----------------------query to get allstudents for mentor---------------------------------
-router.post("/studentsformentor", (req, res) => {
-	const selectedStudent = req.body.name;
-	const getStudentsForMentorQuery = "SELECT name FROM users WHERE roles_id = 2";
-	const selectedStudentQuery = `SELECT competency, lessons, objectives, name 
-	FROM competencylevels 
-	INNER JOIN mappingskills ON competencylevels.id = mappingskills.comp_id 
-	INNER JOIN users ON users.id = mappingskills.users_id 
-	INNER JOIN learningobjectives ON mappingskills.obj_id = learningobjectives.id 
+// -----------------------query to get students update for mentor and returning students---------------------------------
+router.post("/students-page", (req, res) => {
+	const lessonsOnlyQuery = `SELECT objectives, learningobjectives.id as id, lessons 
+	FROM learningobjectives 
+	INNER JOIN techskills ON  learningobjectives.lesson_id = techskills.id ORDER BY lessons`;
+	console.log(req.body);
+	const user_id = req.body.userId;
+	const obj_id = req.body.obj_id;
+	const updatedSkillsQuery = `SELECT objectives, learningobjectives.id as id, lessons, competency, users_id 
+	FROM learningobjectives 
 	INNER JOIN techskills ON learningobjectives.lesson_id = techskills.id 
-	WHERE users.id = mappingskills.users_id`;
-	db.query(selectedStudentQuery).then((result) => {
-		let lessonsObject = {};
+	INNER JOIN mappingskills ON learningobjectives.id = mappingskills.obj_id 
+	INNER JOIN users ON users.id = mappingskills.users_id 
+	INNER JOIN competencylevels ON mappingskills.comp_id = competencylevels.id 
+	WHERE users_id = '${user_id}'`;
+	// const skillsUpdate = db.query(updatedSkillsQuery).then((result) => res.status(201).send(result.rows))
+	// .catch((e) => res.status(500).json({ "message":e }));
+	// console.log(skillsUpdate);
+	
+	const studentMappingSkills = `SELECT EXISTS(SELECT * FROM mappingskills WHERE users_id = '${user_id}')`;
+	db.query(studentMappingSkills).then((result)=>{
+		console.log(result.rows[0].exists);
+		if(result.rows[0].exists){
+	db.query(lessonsOnlyQuery).then((result) => {
+		let lessonsArray = {};
 		result.rows.forEach((row) =>{
-			if(lessonsObject.hasOwnProperty(row.name)){
-				lessonsObject[row.name].push({ lessons:row.lessons, objectives:row.objectives, competency:row.competency });
+			// console.log(result.rows);
+			if(!lessonsArray.hasOwnProperty(row.lessons)){
+				lessonsArray[row.lessons] = [{objectives:row.objectives, id:row.id}];
 			} else {
-				lessonsObject[row.name] = [ {lessons:row.lessons, objectives:row.objectives, competency:row.competency }];
+				lessonsArray[row.lessons].push({objectives:row.objectives, id:row.id});
 			}
 		});
-		res.status(200).json(lessonsObject);
-	}).catch((e) => res.status(500).json({ "message":e }));
-})
+		res.status(200).json(lessonsArray);
+	}).catch((e) => res.status(500).json({"message":e}));
+} else {
+	db.query(lessonsOnlyQuery).then((result) => {
+		let lessonsArray = {};
+		result.rows.forEach((row) =>{
+			// console.log(result.rows);
+			if(!lessonsArray.hasOwnProperty(row.lessons)){
+				lessonsArray[row.lessons] = [{objectives:row.objectives, id:row.id}];
+			} else {
+				lessonsArray[row.lessons].push({objectives:row.objectives, id:row.id});
+			}
+		});
+		res.status(200).json(lessonsArray);
+	}).catch((e) => res.status(500).json({"message":e}));
+}
+});
+});
 
 //------------------------query to post data at creation of account to database------------------
-router.post("/users/signup", async(req, res) => {
+router.post("/users/sign-up", async(req, res) => {
 	console.log(req.body);
 	const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
 	const newRoleName = req.body.name;
@@ -164,16 +194,16 @@ router.post("/mappingskills", function (req, res) {
 				.then((result) => res.json({ "message":`mappingskills ${user_id} inserted!` }))
 				.catch((e) => res.status(500).json({"message":e}));
 		}
-	})
-	;
+	}).catch((e) => res.status(500).json({ "message":e }));
 });
 
 
 //-----------------query to get userlogin details.-------------------------------------
-router.post("/users/login", (req,res) => {
+router.post("/users/log-in", (req,res) => {
 	const userEmail = req.body.email;
 	const userPassword = req.body.password;
 	const loginQuery = `SELECT name, password, roles_id, id FROM users WHERE email = '${userEmail}'`;
+	const tokenInsert = `INSERT INTO tokens (token, users_id, creation_date) VALUES ($1, $2, $3)`
 	db.query(loginQuery).then((result) => {res.status(200);
 		const loginResult = result.rows[0];
 		if(loginResult === undefined){
@@ -185,8 +215,14 @@ router.post("/users/login", (req,res) => {
 			const userId = loginResult["id"];
 			const isValid = bcrypt.compareSync(userPassword, hashed);
 			if ( isValid ){
-				res.json({ "message": userRole, "id":userId, "name":userName });
-
+				const newToken = uuidv4();
+				console.log(newToken);
+				const creationDate = new Date().toLocaleString();
+				console.log(creationDate);
+				db.query(tokenInsert , [newToken, userId, creationDate])
+				.then((result) => res.status(200).json({ "message": userRole, "id":userId, "name":userName, "token":"token created","tokenId":newToken }))
+				.catch((e) => console.error(e));
+				
 				//-------------------direct to the home page-------------
 			}else{
 				res.status(401).json({ "message":"wrong password" });
