@@ -127,8 +127,8 @@ router.post("/users/signup", async(req, res) => {
 
 	try {
 		const newRolePassword = await bcrypt.hash(req.body.password, 10);
-		if (!regExpression.exec(newRoleName)) {
-			res.status(500).send("Fill in correct field");
+		if (!regExpression.exec(newRoleName) && newRoleName.toString().trim().length === 0) {
+			res.status(500).send({ "message":"Fill in correct field" });
 		} else {
 			db.query(insertUserQuery, [
 				newRoleName,

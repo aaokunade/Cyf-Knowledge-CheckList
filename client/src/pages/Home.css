@@ -458,6 +458,99 @@ input {
     color: red;
 }
 
+/* mentor page */
+
+.header-image {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10%;
+    margin-left: 5%;
+    margin-right: 5%;     
+}
+
+.mentor-logout-link {
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    width: 4rem;
+    font-size: 1rem;
+    margin-left: 90%;
+    border-radius: 10%;
+    padding: 0.6%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -3%;
+    
+}
+
+.dropdown{
+    margin-left: 45%;
+    margin-top: 10%;
+    font-size: 1.75rem;
+    
+}
+
+.main-dropdown {
+    margin-left: 45%;
+    margin-bottom: 10%; 
+    font-size: 1.75rem; 
+}
+
+.Stulabel {
+    padding-right: 3rem;
+}
+
+.submitbutn {
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    width: 10rem;
+    font-size: 1rem;
+    margin-top: 3%;
+    margin-left: 45%;
+    border-radius: 10%;
+    padding: 0.6%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deletebutn{
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    width: 10rem;
+    font-size: 1rem;
+    margin-bottom: 10%;
+    margin-left: 45%;
+    border-radius: 10%;
+    padding: 0.4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.new-obj {
+    margin-left: 30%;
+    width: 35%;
+    margin-top: 1rem;
+}
+
+.mentor-sentence {
+    margin-left: 15%;
+}
+
+.Mentor-Name {
+    margin-left: 10%;
+}
+
+.logo-image {
+    margin-left: 5%;
+}
+
+
 /* media queries */
 
 /*Small smartphones [325px -> 425px]*/
