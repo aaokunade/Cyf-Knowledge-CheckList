@@ -4,13 +4,14 @@ import React, {useEffect, useState} from 'react';
 import { Link } from "react-router-dom";
 import Footer from './Footer';
 import logo from "./Images/cyf_logo.jpeg";
+import ScrollToTop from "./ScrollToTop";
 
 
 const Student = (props) => {
 	const [lessons, setLessons] = useState({})
     const [updateCompetency, setUpdateCompetency] = useState({lesson: "", obj_id: 0, competencyId: 0, user:{}});
     const [competency , setCompetency] = useState([]);
-
+   
 
 // to render skills and objectives
 	useEffect(() => {
@@ -29,15 +30,16 @@ const Student = (props) => {
 
 
 // to get the button's text to update
-    const updateCompetencyOnClick = (lesson, obj_id, competencyId) => {        
-       setUpdateCompetency({lesson: lesson, obj_id: obj_id, competencyId: competencyId, user:props.user});
-        fetch(`/api//mappingskills`, {
+    const updateCompetencyOnClick = (lesson, obj_id, competencyId) => {  
+        let mappingSkills = {lesson: lesson, obj_id: obj_id, competencyId: competencyId, user:props.user};  
+       setUpdateCompetency(mappingSkills);
+        fetch('/api/mappingskills', {
           method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(updateCompetency),
+          body: JSON.stringify(mappingSkills),
         })
           .then((result) => result.json())
           .then((res) => {
@@ -45,13 +47,14 @@ const Student = (props) => {
           });
     };
 
+
 	return (
 		<div className="student-page">
             <div className="header">
                 <div className="logo-image">
                     <img className="image" src={logo} alt="cyf_logo" />
                 </div>
-                <h2>Student</h2>
+                <h2>Student Overview</h2>
             </div>
 			<div className="student-header">
 				<h2>{props.user.userName}</h2>
@@ -62,7 +65,7 @@ const Student = (props) => {
             
 			<div className="skills-btn-container">
 				{Object.keys(lessons).map((lesson, index) => (
-					<button className="skills-btn"  key = {index}><a href={"#" + lesson} >{lesson}</a></button>
+                        <a className="skills-btn"  key = {index} href={"#" + lesson} >{lesson}</a>
 				))}
 			</div>
 			{Object.keys(lessons).map((lesson, index) => (
@@ -82,6 +85,7 @@ const Student = (props) => {
 					
 				</div>
 			))}
+            <ScrollToTop />
 			<Footer />
 		</div>
 	)
