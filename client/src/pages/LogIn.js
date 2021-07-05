@@ -9,7 +9,6 @@ import logo from "./Images/cyf_logo.jpeg";
 function LogIn() {
 const [loginValues, setLoginValues] = useState({email: "", password: ""})
 const [errors, setErrors] = useState({});
-// const [loginStatus, setLoginStatus] = useState();
 const [isLogged, setIsLogged] = useState(false);
 const [details, setDetails] = useState({errorMessage: "", userId: "", userName: ""});
 
@@ -37,8 +36,10 @@ const handleLogChange = (e) => {
       console.log(res.message);
        if(res.message === "wrong password" || res.message === "cannot find user"){
         setIsLogged(false);
+
+        setDetails({errorMessage:res.message, userId:""})
         setDetails({ errorMessage:res.message, userId:"" })
-        // setLoginStatus();
+
       } else if(res.message === 2) {
         setIsLogged(true);
         setDetails({errorMessage:"", userId:res.id, userName: res.name})
@@ -101,8 +102,7 @@ const handleLogChange = (e) => {
                 </div>
               </form>
             </div>
-            {/* <h2>{loginStatus}</h2> */}
-            <p className="login-signup-link">Don't have an account. <Link className="link login-signup" to="/SignUp">
+            <p className="login-signup-link">Don't have an account. <Link className="link login-signup" to="/sign-up">
               Sign Up
             </Link></p>
             <Footer />

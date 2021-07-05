@@ -12,7 +12,7 @@ const SignUPSuccess = () => {
             <h1>Account Created</h1>
           </div>
           <button>
-          <Link className="link" to="/LogIn">
+          <Link className="link" to="/login">
             Login
           </Link>
         </button>

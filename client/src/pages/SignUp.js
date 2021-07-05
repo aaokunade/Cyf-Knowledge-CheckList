@@ -19,13 +19,15 @@ const SignUp = () => {
     region: "",
   });
   const [errors, setErrors] = useState({});
+
   //fetch data
 	useEffect(()=> {
 	fetch("/api/regions")
       .then((res) => res.json())
       .then((region) => setRegion(region));
 },[])
-  const localUrl = "http://127.0.0.1:3000/";
+
+  // const localUrl = "http://127.0.0.1:3000/";
   const prodUrl = "/";
 
   function handleFormSubmit(event) {
@@ -198,7 +200,7 @@ const SignUp = () => {
             </form>
           </div>
            <p className="login-signup-link">Already have an account.
-           <Link className="link login-signup" to="/LogIn">
+           <Link className="link login-signup" to="/login">
               Login
             </Link>
             </p>
