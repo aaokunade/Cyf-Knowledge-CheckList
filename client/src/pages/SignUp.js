@@ -35,7 +35,7 @@ const SignUp = () => {
     console.log(Validation(values));
     setErrors(Validation(values));
     if ( Object.keys(Validation(values)).length === 0){
-    fetch(`${prodUrl}api/users/signup/`, {
+    fetch(`${prodUrl}api/users/sign-up`, {
       method: "POST",
       headers: {
         Accept: "application/json",

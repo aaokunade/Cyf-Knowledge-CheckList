@@ -31,6 +31,7 @@ FOREIGN KEY (roles_id)  REFERENCES roles(id)
 CREATE TABLE tokens (
 token VARCHAR(70) PRIMARY KEY,
 users_id integer,
+creation_date   TIMESTAMP NOT NULL,
 FOREIGN KEY (users_id) REFERENCES users(id)
 );
 

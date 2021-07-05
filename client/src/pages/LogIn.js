@@ -23,9 +23,10 @@ const handleLogChange = (e) => {
   function handleLoginFormSubmit(event) {
     event.preventDefault();
     setErrors(Validation(loginValues));
-    fetch('/api/users/login', {
+    fetch('/api/users/log-in', {
       method: "POST",
       headers: {
+        // "Authorization":`Token ${newToken}`,
         "Accept": "application/json",
         "Content-Type": "application/json",
       },
@@ -33,7 +34,7 @@ const handleLogChange = (e) => {
     })
     .then((result) => result.json())
     .then((res) => {
-      console.log(res.message);
+      console.log(res);
        if(res.message === "wrong password" || res.message === "cannot find user"){
         setIsLogged(false);
 
@@ -41,8 +42,8 @@ const handleLogChange = (e) => {
         setDetails({ errorMessage:res.message, userId:"" })
 
       } else if(res.message === 2) {
+        setDetails({ errorMessage:"", userId:res.id, userName: res.name });
         setIsLogged(true);
-        setDetails({errorMessage:"", userId:res.id, userName: res.name})
       }
     });
   }
