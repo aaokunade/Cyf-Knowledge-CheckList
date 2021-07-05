@@ -38,10 +38,10 @@ export function Home() {
           <h2>Knowledge Checklist</h2>
         </div>
         <div className="home-buttons">
-            <Link className="link" to="/SignUp">
+            <Link className="link" to="/sign-up">
               Sign Up
             </Link>
-            <Link className="link" to="/LogIn">
+            <Link className="link" to="/login">
               Login
             </Link>
       
