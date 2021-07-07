@@ -86,13 +86,13 @@ const Mentor = (props) => {
               {student.name}
             </option>
           ))}
+
         </select>
       </div>
       <div className="mentor-sentence">
         <label className="Objtitle" htmlFor="fname">
           <h2>New Objectives</h2>
         </label>
-
         <h3>
           As a Mentor you have the opportunity to add new objectives for each
           subject. Please note, you cannot amend this once the course has begun.

@@ -72,7 +72,7 @@ router.post("/students-page", (req, res) => {
 	db.query(tokenQuery).then((result) => {
 		if(result.rows.length === 0){
 			res.sendStatus(401);
-			return;	
+			return;
 		}
 		const user = result.rows[0];
 		if(user.roles_id === 2 && user.users_id !== user_id){
@@ -147,7 +147,7 @@ router.post("/users/sign-up", async(req, res) => {
 
 	try {
 		const newRolePassword = await bcrypt.hash(req.body.password, 10);
-		if (!regExpression.exec(newRoleName) && newRoleName.toString().trim().length === 0) {
+		if (!regExpression.exec(newRoleName) || newRoleName.toString().trim().length === 0) {
 			res.status(500).send({ "message":"Fill in correct field" });
 		} else {
 			db.query(insertUserQuery, [
@@ -226,5 +226,29 @@ router.post("/users/log-in", (req,res) => {
 		}
 	});
 });
+
+router.post("/objectives", (req, res) => {
+	const insertObjQuery = "INSERT INTO learningobjectives(objectives, lesson_id) VALUES($1, $2)";
+	const { objectives, lesson_id } = req.body;
+	const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
+	if (!regExpression.exec(objectives) || objectives.toString().trim().length === 0) {
+		res.status(500).send({ "message":"Fill in correct field" });
+	} else {
+	db.query(insertObjQuery, [objectives, lesson_id])
+		.then((result) => res.json({ "message":`LearningObjectives ${lesson_id} inserted!` }))
+		.catch((e) => console.error(e));
+	}// res.status(500).json({ "message":e }));
+});
+
+router.delete("/objectives/:objId", (req, res) => {
+	const objectiveId = req.params.objId;  
+	db.query("DELETE FROM mappingskills WHERE obj_id=$1", [objectiveId])
+	  .then(() => {
+		db.query("DELETE FROM learningobjectives WHERE id=$1", [objectiveId])
+		  .then(() => res.status(200).send(`Objective ${objectiveId} deleted!`))
+		  .catch((e) => console.error(e));
+	  })
+	  .catch((e) => console.error(e));
+  });
 
 export default router;
