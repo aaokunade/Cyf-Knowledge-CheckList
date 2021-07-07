@@ -550,6 +550,14 @@ input {
     margin-left: 5%;
 }
 
+.select-dropdown{
+    display:flex;
+    align-items: center;   
+}
+
+.lesson-select{
+    margin-left: 50%;
+}
 
 /* media queries */
 
