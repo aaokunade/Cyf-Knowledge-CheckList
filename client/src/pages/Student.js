@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Footer from './Footer';
 import logo from "./Images/cyf_logo.jpeg";
 import ScrollToTop from "./ScrollToTop";
-
+import { globalState } from './LogIn';
 
 const Student = (props) => {
 	const [lessons, setLessons] = useState({})
@@ -21,6 +21,7 @@ const Student = (props) => {
             fetch("api/students-page", {
                 method: "POST",
                 headers: {
+                  "Authorization":`Token ${globalState.token}`,
                   Accept: "application/json",
                   "Content-Type": "application/json",
                 },
@@ -28,7 +29,9 @@ const Student = (props) => {
               })
 			.then((result) => result.json())
 			.then((lessons) => {
-				setLessons(lessons)                
+        console.log(lessons.competencies)
+        console.log(lessons)
+				setLessons(lessons.lessons)                
 			})        
     })
 	}, [props])
@@ -36,8 +39,8 @@ const Student = (props) => {
 // to get the button's text to update
 
     const updateCompetencyOnClick = (lesson, obj_id, competencyId) => {  
-        let mappingSkills = {lesson: lesson, obj_id: obj_id, competencyId: competencyId, user:props.user};  
-       setUpdateCompetency(mappingSkills);
+        let mappingSkills = { lesson: lesson, obj_id: obj_id, competencyId: competencyId, user:props.user }; 
+        setUpdateCompetency(mappingSkills);
         fetch('/api/mappingskills', {
           method: "POST",
           headers: {
@@ -48,7 +51,6 @@ const Student = (props) => {
         })
           .then((result) => result.json())
           .then((res) => {
-            console.log(res);
           });
     };
 
