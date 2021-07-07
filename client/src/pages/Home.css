@@ -481,6 +481,7 @@ input {
     justify-content: center;
     align-items: center;
     margin-top: -3%;
+    box-shadow: 4px 6px rgb(94, 89, 89);
     
 }
 
@@ -489,16 +490,19 @@ input {
     margin-top: 10%;
     font-size: 1.75rem;
     
+    
 }
 
 .main-dropdown {
     margin-left: 45%;
     margin-bottom: 10%; 
     font-size: 1.75rem; 
+    
 }
 
 .Stulabel {
     padding-right: 3rem;
+    box-shadow: 4px 6px rgb(94, 89, 89);
 }
 
 .submitbutn {
@@ -514,6 +518,7 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 4px 6px rgb(94, 89, 89);
 }
 
 .deletebutn{
@@ -529,6 +534,7 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 4px 6px rgb(94, 89, 89);
 
 }
 
@@ -550,6 +556,16 @@ input {
     margin-left: 5%;
 }
 
+.select-dropdown{
+    display:flex;
+    align-items: center;
+    
+}
+
+.lesson-select{
+    margin-left: 50%;
+    box-shadow: 4px 6px rgb(94, 89, 89);
+}
 
 /* media queries */
 
