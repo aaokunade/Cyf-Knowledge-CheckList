@@ -16,8 +16,6 @@ const Mentor = (props) => {
     		.then((result) => result.json())
     		.then((competency) => {
     			setCompetency(competency);
-    			console.log(competency);
-          console.log(userId);
     			fetch("api/students-page", {
     				method: "POST",
     				headers: {
@@ -29,9 +27,6 @@ const Mentor = (props) => {
     			})
     				.then((result) => result.json())
     				.then((lessons) => {
-    					console.log(lessons);
-    					console.log(lessons.competencies);
-
     					setLessons(lessons.lessons);
     				});
     		});
@@ -56,30 +51,7 @@ const Mentor = (props) => {
             					setStudents(students);
             				});
   }, [props])
-	// useEffect(() => {
-	// 	fetch("api/competency")
-	// 		.then((result) => result.json())
-	// 		.then((competency) => {
-	// 			setCompetency(competency);
-	// 			console.log(competency);
-	// 			fetch("api/students-page", {
-	// 				method: "POST",
-	// 				headers: {
-	// 					"Authorization":`Token ${globalState.token}`,
-	// 					Accept: "application/json",
-	// 					"Content-Type": "application/json",
-	// 				},
-	// 				body: JSON.stringify({ "userId":props.user.userId }),
-	// 			})
-	// 				.then((result) => result.json())
-	// 				.then((lessons) => {
-	// 					// console.log(lessons);
-	// 					setLessons(lessons);
-	// 				});
-	// 		});
-
-	// }, [props]);
-
+	
 	return (
 		<>
 			<div className="header">
