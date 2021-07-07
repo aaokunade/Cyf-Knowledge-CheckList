@@ -85,9 +85,9 @@ const Mentor = (props) => {
 				</label>
 
 				<h3>
-            As a Mentor you have the opportunity to add new objectives for each
+          <p> As a Mentor you have the opportunity to add new objectives for each
             subject. Please note, you cannot amend this once the course has
-            begun.
+            begun.</p>
 				</h3>
 			</div>
 			<div>
