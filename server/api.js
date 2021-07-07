@@ -237,4 +237,13 @@ router.post("/users/log-in", (req,res) => {
 	});
 });
 
+
+// to get updated mappingskills;
+router.get("/updated-mappingskills", (req, res) => {
+  const updatedMappingSkills = "SELECT * FROM mappingskills";
+  db.query(updatedMappingSkills)
+    .then((result) => res.status(201).send(result.rows))
+    .catch((e) => res.status(500).json({ message: e }));
+});
+
 export default router;
