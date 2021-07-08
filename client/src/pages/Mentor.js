@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import logo from "./Images/cyf_logo.jpeg";
 import { globalState } from "./LogIn";
-const Mentor = (props) => {
+
+//all useStates- to collate all students and lessons from the dropdown selection box
+  const Mentor = (props) => {
   const [lessons, setLessons] = useState({});
   const [lessonsDropDown, setLessonsDropDown] = useState([]);
-  console.log(lessonsDropDown);
   const [updateCompetency, setUpdateCompetency] = useState({
     lesson: "",
     obj_id: 0,
@@ -35,11 +36,7 @@ const Mentor = (props) => {
             console.log(lessons)
           });
       });
-    //     // const { Student, value } = event.target;
-    //     // setValues({
-    //     //   ...values,
-    //     //   [Student]: value,
-    //     // })
+  // useEffect - this token recogonises the Student account selected & provides access to their Overview page
   };
   useEffect(() => {
     fetch("api/getstudentsonly", {
