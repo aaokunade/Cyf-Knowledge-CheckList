@@ -1,7 +1,7 @@
 import { Pool } from "pg";
 require("dotenv").config();
-const password = process.env.PASS;
-const userName = process.env.USERNAME;
+const password = process.env.ANYTHING;
+const userName = process.env.USER;
 let pool;
 
 if(process.env.NODE_ENV === "development"){
