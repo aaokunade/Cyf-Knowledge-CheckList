@@ -227,6 +227,17 @@ router.post("/users/log-in", (req,res) => {
 	});
 });
 
+
+
+// to get updated mappingskills;
+router.get("/updated-mappingskills", (req, res) => {
+  const updatedMappingSkills = "SELECT * FROM mappingskills";
+  db.query(updatedMappingSkills)
+    .then((result) => res.status(201).send(result.rows))
+    .catch((e) => res.status(500).json({ message: e }));
+});
+
+
 router.post("/objectives", (req, res) => {
 	const insertObjQuery = "INSERT INTO learningobjectives(objectives, lesson_id) VALUES($1, $2)";
 	const { objectives, lesson_id } = req.body;
@@ -250,5 +261,6 @@ router.delete("/objectives/:objId", (req, res) => {
 	  })
 	  .catch((e) => console.error(e));
   });
+
 
 export default router;

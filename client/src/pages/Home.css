@@ -490,6 +490,7 @@ input {
     margin-left: 45%;
     margin-bottom: 10%; 
     font-size: 1.75rem; 
+    
 }
 .Stulabel {
     padding-right: 3rem;
@@ -548,6 +549,16 @@ input {
     box-shadow: 4px 6px rgb(94, 89, 89);
 }
 
+.select-dropdown{
+    display:flex;
+    align-items: center;
+    
+}
+
+.lesson-select{
+    margin-left: 50%;
+    box-shadow: 4px 6px rgb(94, 89, 89);
+}
 
 /* media queries */
 
