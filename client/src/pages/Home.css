@@ -459,7 +459,6 @@ input {
 }
 
 /* mentor page */
-
 .header-image {
     display: flex;
     justify-content: space-between;
@@ -467,7 +466,6 @@ input {
     margin-left: 5%;
     margin-right: 5%;     
 }
-
 .mentor-logout-link {
     text-decoration: none;
     color: white;
@@ -481,26 +479,22 @@ input {
     justify-content: center;
     align-items: center;
     margin-top: -3%;
-    
+    box-shadow: 4px 6px rgb(94, 89, 89);
 }
-
 .dropdown{
     margin-left: 45%;
     margin-top: 10%;
     font-size: 1.75rem;
-    
 }
-
 .main-dropdown {
     margin-left: 45%;
     margin-bottom: 10%; 
     font-size: 1.75rem; 
 }
-
 .Stulabel {
     padding-right: 3rem;
+    box-shadow: 4px 6px rgb(94, 89, 89);
 }
-
 .submitbutn {
     text-decoration: none;
     color: white;
@@ -514,8 +508,8 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 4px 6px rgb(94, 89, 89);
 }
-
 .deletebutn{
     text-decoration: none;
     color: white;
@@ -529,25 +523,29 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    box-shadow: 4px 6px rgb(94, 89, 89);
 }
-
 .new-obj {
     margin-left: 30%;
     width: 35%;
     margin-top: 1rem;
 }
-
 .mentor-sentence {
     margin-left: 15%;
 }
-
 .Mentor-Name {
     margin-left: 10%;
 }
-
 .logo-image {
     margin-left: 5%;
+}
+.select-dropdown{
+    display:flex;
+    align-items: center;
+}
+.lesson-select{
+    margin-left: 50%;
+    box-shadow: 4px 6px rgb(94, 89, 89);
 }
 
 
