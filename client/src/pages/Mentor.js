@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import logo from "./Images/cyf_logo.jpeg";
 import { globalState } from "./LogIn";
-
 const Mentor = (props) => {
   const [lessons, setLessons] = useState({});
-  
+  const [lessonsDropDown, setLessonsDropDown] = useState([]);
+  console.log(lessonsDropDown);
   const [updateCompetency, setUpdateCompetency] = useState({
     lesson: "",
     obj_id: 0,
@@ -15,7 +15,6 @@ const Mentor = (props) => {
   });
   const [competency, setCompetency] = useState([]);
   const [students, setStudents] = useState([]);
-
   const handleChange = (event) => {
     fetch("api/competency")
       .then((result) => result.json())
@@ -32,10 +31,10 @@ const Mentor = (props) => {
         })
           .then((result) => result.json())
           .then((lessons) => {
-			setLessons(lessons);
+            setLessons(lessons.lessons);
+            console.log(lessons)
           });
       });
-
     //     // const { Student, value } = event.target;
     //     // setValues({
     //     //   ...values,
@@ -56,9 +55,12 @@ const Mentor = (props) => {
       .then((students) => {
         setStudents(students);
       });
-	  
+      fetch("api/lessons")
+       .then((result) => result.json())
+      .then((students) => {
+        setLessonsDropDown(students);
+      });
   }, [props]);
-
   return (
     <>
       <div className="header">
@@ -86,7 +88,6 @@ const Mentor = (props) => {
               {student.name}
             </option>
           ))}
-
         </select>
       </div>
       <div className="mentor-sentence">
@@ -101,7 +102,7 @@ const Mentor = (props) => {
       <div>
         <form action="/action_page.php" method="post">
           <br></br>
-		  <div className="select-dropdown">
+      <div className="select-dropdown">
           <input
             type="text"
             id="NewObj"
@@ -112,14 +113,14 @@ const Mentor = (props) => {
            <div className="lesson-dropdown">
             <select className="lesson-select" name="select">
               <option className="option">Select Lesson</option>
-			  {Object.keys(lessons).map((lesson, index) => (
+        {lessonsDropDown.map((lesson, index) => (
             <option key={index} value={lesson}>
-              {lesson}
+              {lesson.lessons}
             </option>
-          ))}
+        ))}
             </select>
-			</div>
-           </div> 
+      </div>
+           </div>
           <input
             className="submitbutn"
             type="submit"
@@ -134,7 +135,6 @@ const Mentor = (props) => {
           ></input>
         </form>
       </div>
-
       <div className="skills-btn-container">
         {Object.keys(lessons).map((lesson, index) => (
           <button className="skills-btn" key={index}>
@@ -157,7 +157,6 @@ const Mentor = (props) => {
           ))}
         </div>
       ))}
-
       <Footer />
     </>
   );
