@@ -252,7 +252,7 @@ router.post("/objectives", (req, res) => {
 });
 
 router.delete("/objectives/:objId", (req, res) => {
-	const objectiveId = req.params.objId;  
+	const objectiveId = req.params.objId;
 	db.query("DELETE FROM mappingskills WHERE obj_id=$1", [objectiveId])
 	  .then(() => {
 		db.query("DELETE FROM learningobjectives WHERE id=$1", [objectiveId])
