@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import logo from "./Images/cyf_logo.jpeg";
 import { globalState } from "./LogIn";
 
+
 //all useStates- to collate all students and lessons from the dropdown selection box
   const Mentor = (props) => {
   const [lessons, setLessons] = useState({});
@@ -70,92 +71,93 @@ import { globalState } from "./LogIn";
         <h2>{props.user.userName}</h2>
         <div className="Mlogout">
           <Link className="mentor-logout-link" to="/">
+
             Log out
-          </Link>
-        </div>
-      </div>
-      <div>
-        <h2 className="dropdown"> Select Student</h2>
-      </div>
-      <div className="main-dropdown">
-        <select className="Stulabel" name="student" onChange={handleChange}>
-          <option className="option">Select Student</option>
-          {students.map((student, index) => (
-            <option key={index} value={student.name}>
-              {student.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="mentor-sentence">
-        <label className="Objtitle" htmlFor="fname">
-          <h2>New Objectives</h2>
-        </label>
-        <h3>
+					</Link>
+				</div>
+			</div>
+			<div>
+				<h2 className="dropdown"> Select Student</h2>
+			</div>
+			<div className="main-dropdown">
+				<select className="Stulabel" name="student" onChange={handleChange}>
+					<option className="option">Select Student</option>
+					{students.map((student, index) => (
+						<option key={index} value={student.name}>
+							{student.name}
+						</option>
+					))}
+				</select>
+			</div>
+			<div className="mentor-sentence">
+				<label className="Objtitle" htmlFor="fname">
+					<h2>New Objectives</h2>
+				</label>
+				<h3>
           As a Mentor you have the opportunity to add new objectives for each
           subject. Please note, you cannot amend this once the course has begun.
-        </h3>
-      </div>
-      <div>
-        <form action="/action_page.php" method="post">
-          <br></br>
-      <div className="select-dropdown">
-          <input
-            type="text"
-            id="NewObj"
-            className="new-obj"
-            name="fname"
-            placeholder="Insert new objectives here"
-          ></input>
-           <div className="lesson-dropdown">
-            <select className="lesson-select" name="select">
-              <option className="option">Select Lesson</option>
-        {lessonsDropDown.map((lesson, index) => (
-            <option key={index} value={lesson}>
-              {lesson.lessons}
-            </option>
-        ))}
-            </select>
-      </div>
-           </div>
-          <input
-            className="submitbutn"
-            type="submit"
-            formTarget="_blank"
-            value="Submit New Objective"
-          ></input>
-          <input
-            className="deletebutn"
-            type="submit"
-            formTarget="_blank"
-            value="Delete Objective"
-          ></input>
-        </form>
-      </div>
-      <div className="skills-btn-container">
-        {Object.keys(lessons).map((lesson, index) => (
-          <button className="skills-btn" key={index}>
-            <a href={"#" + lesson}>{lesson}</a>
-          </button>
-        ))}
-      </div>
-      {Object.keys(lessons).map((lesson, index) => (
-        <div className="skill-section" id={lesson} key={index}>
-          <h2>{lesson}</h2>
-          {lessons[lesson].map((obj, index) => (
-            <div className="competency-level" key={index}>
-              <p className="obj">{obj.objectives}</p>
-              <div className="comp-btn">
-                {competency.map((comp, index) => (
-                  <button key={index}>{comp.competency}</button>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      ))}
-      <Footer />
-    </>
-  );
+				</h3>
+			</div>
+			<div>
+				<form action="/action_page.php" method="post">
+					<br></br>
+					<div className="select-dropdown">
+						<input
+							type="text"
+							id="NewObj"
+							className="new-obj"
+							name="fname"
+							placeholder="Insert new objectives here"
+						></input>
+						<div className="lesson-dropdown">
+							<select className="lesson-select" name="select">
+								<option className="option">Select Lesson</option>
+								{lessonsDropDown.map((lesson, index) => (
+									<option key={index} value={lesson}>
+										{lesson.lessons}
+									</option>
+								))}
+							</select>
+						</div>
+					</div>
+					<input
+						className="submitbutn"
+						type="submit"
+						formTarget="_blank"
+						value="Submit New Objective"
+					></input>
+					<input
+						className="deletebutn"
+						type="submit"
+						formTarget="_blank"
+						value="Delete Objective"
+					></input>
+				</form>
+			</div>
+			<div className="skills-btn-container">
+				{Object.keys(lessons).map((lesson, index) => (
+					<button className="skills-btn" key={index}>
+						<a href={"#" + lesson}>{lesson}</a>
+					</button>
+				))}
+			</div>
+			{Object.keys(lessons).map((lesson, index) => (
+				<div className="skill-section" id={lesson} key={index}>
+					<h2>{lesson}</h2>
+					{lessons[lesson].map((obj, index) => (
+						<div className="competency-level" key={index}>
+							<p className="obj">{obj.objectives}</p>
+							<div className="comp-btn">
+								{competency.map((comp, index) => (
+									<button key={index}>{comp.competency}</button>
+								))}
+							</div>
+						</div>
+					))}
+				</div>
+			))}
+			<Footer />
+		</>
+	);
 };
 export default Mentor;

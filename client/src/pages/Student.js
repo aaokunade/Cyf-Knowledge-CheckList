@@ -1,10 +1,14 @@
 
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable react/jsx-key */
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import logo from "./Images/cyf_logo.jpeg";
 import ScrollToTop from "./ScrollToTop";
 import { globalState } from "./LogIn";
+
 const Student = (props) => {
   const [lessons, setLessons] = useState({ lessons: {} });
   const [updateCompetency, setUpdateCompetency] = useState({
@@ -177,4 +181,5 @@ const Student = (props) => {
     </div>
   );
 };
+
 export default Student;
