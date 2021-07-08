@@ -3,76 +3,75 @@ import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import logo from "./Images/cyf_logo.jpeg";
 import { globalState } from "./LogIn";
-const Mentor = (props) => {
-	const [lessons, setLessons] = useState({});
-	const [lessonsDropDown, setLessonsDropDown] = useState([]);
-	const [updateCompetency, setUpdateCompetency] = useState({
-		lesson: "",
-		obj_id: 0,
-		competencyId: 0,
-		user: {},
-	});
-	const [competency, setCompetency] = useState([]);
-	const [students, setStudents] = useState([]);
-	const handleChange = (event) => {
-		fetch("api/competency")
-			.then((result) => result.json())
-			.then((competency) => {
-				setCompetency(competency);
-				fetch("api/students-page", {
-					method: "POST",
-					headers: {
-						Authorization: `Token ${globalState.token}`,
-						Accept: "application/json",
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ userId: props.user.userId }),
-				})
-					.then((result) => result.json())
-					.then((lessons) => {
-						console.log(lessons);
-						setLessons(lessons.lessons);
-						console.log(lessons);
-					});
-			});
-		//     // const { Student, value } = event.target;
-		//     // setValues({
-		//     //   ...values,
-		//     //   [Student]: value,
-		//     // })
-	};
-	useEffect(() => {
-		fetch("api/getstudentsonly", {
-			method: "POST",
-			headers: {
-				Authorization: `Token ${globalState.token}`,
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ userId: props.user.userId }),
-		})
-			.then((result) => result.json())
-			.then((students) => {
-				setStudents(students);
-			});
-		fetch("api/lessons")
-			.then((result) => result.json())
-			.then((students) => {
-				setLessonsDropDown(students);
-			});
-	}, [props]);
-	return (
-		<>
-			<div className="header">
-				<div className="logo-image">
-					<img className="image" src={logo} alt="cyf_logo" />
-				</div>
-				<h2>Mentor Overview</h2>
-			</div>
-			<div className="Mentor-Name">
-				<h2>{props.user.userName}</h2>
-				<div className="Mlogout">
-					<Link className="mentor-logout-link" to="/">
+
+
+//all useStates- to collate all students and lessons from the dropdown selection box
+  const Mentor = (props) => {
+  const [lessons, setLessons] = useState({});
+  const [lessonsDropDown, setLessonsDropDown] = useState([]);
+  const [updateCompetency, setUpdateCompetency] = useState({
+    lesson: "",
+    obj_id: 0,
+    competencyId: 0,
+    user: {},
+  });
+  const [competency, setCompetency] = useState([]);
+  const [students, setStudents] = useState([]);
+  const handleChange = (event) => {
+    fetch("api/competency")
+      .then((result) => result.json())
+      .then((competency) => {
+        setCompetency(competency);
+        fetch("api/students-page", {
+          method: "POST",
+          headers: {
+            Authorization: `Token ${globalState.token}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId: props.user.userId }),
+        })
+          .then((result) => result.json())
+          .then((lessons) => {
+            setLessons(lessons.lessons);
+            console.log(lessons)
+          });
+      });
+  // useEffect - this token recogonises the Student account selected & provides access to their Overview page
+  };
+  useEffect(() => {
+    fetch("api/getstudentsonly", {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${globalState.token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: props.user.userId }),
+    })
+      .then((result) => result.json())
+      .then((students) => {
+        setStudents(students);
+      });
+      fetch("api/lessons")
+       .then((result) => result.json())
+      .then((students) => {
+        setLessonsDropDown(students);
+      });
+  }, [props]);
+  return (
+    <>
+      <div className="header">
+        <div className="logo-image">
+          <img className="image" src={logo} alt="cyf_logo" />
+        </div>
+        <h2>Mentor Overview</h2>
+      </div>
+      <div className="Mentor-Name">
+        <h2>{props.user.userName}</h2>
+        <div className="Mlogout">
+          <Link className="mentor-logout-link" to="/">
+
             Log out
 					</Link>
 				</div>
