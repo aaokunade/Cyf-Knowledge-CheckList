@@ -7,17 +7,17 @@ let pool;
 if(process.env.NODE_ENV === "development"){
 	const dbUrl = `postgres://${userName}:${password}@localhost:5432/cyf`;
 	pool = new Pool({
-  connectionString: dbUrl
-});
+		connectionString: dbUrl,
+	});
 } else {
 	const dbUrl = process.env.DATABASE_URL;
 	pool = new Pool({
-  connectionString: dbUrl,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-  connectionTimeoutMillis: 5000,
-});
+		connectionString: dbUrl,
+		ssl: {
+			rejectUnauthorized: false,
+		},
+		connectionTimeoutMillis: 5000,
+	});
 }
 
 
