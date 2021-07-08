@@ -257,9 +257,6 @@ router.post("/users/log-in", (req, res) => {
     }
   });
 });
-=
-
-
 
 // to get updated mappingskills;
 router.get("/updated-mappingskills", (req, res) => {
