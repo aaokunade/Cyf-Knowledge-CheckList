@@ -27,15 +27,12 @@ const SignUp = () => {
 			.then((region) => setRegion(region));
 	},[]);
 
-	// const localUrl = "http://127.0.0.1:3000/";
-	const prodUrl = "/";
-
 	function handleFormSubmit(event) {
 		event.preventDefault();
 		console.log(Validation(values));
 		setErrors(Validation(values));
 		if ( Object.keys(Validation(values)).length === 0){
-			fetch(`${prodUrl}api/users/sign-up`, {
+			fetch("/api/users/sign-up", {
 				method: "POST",
 				headers: {
 					Accept: "application/json",
