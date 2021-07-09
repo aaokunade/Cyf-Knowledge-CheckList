@@ -265,6 +265,7 @@ router.post("/objectives", (req, res) => {
     = "INSERT INTO learningobjectives(objectives, lesson_id) VALUES($1, $2)";
 	const newObj = req.body.newObj;
 	const lesson = req.body.lesson;
+	console.log(lesson);
 	let lesson_id;
 	if(lesson === "HTML/CSS"){
 		lesson_id = 1;
@@ -283,8 +284,8 @@ router.post("/objectives", (req, res) => {
 	}
 	const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
 	if (
-		!regExpression.exec(newObj)
-    || newObj.toString().trim().length === 0 && (lesson_id === 7)
+		(!regExpression.exec(newObj))
+    || (newObj.toString().trim().length === 0) || (lesson_id === undefined)
 	) {
 		res.status(500).send({ message: "Fill in correct field" });
 	} else {
