@@ -97,7 +97,6 @@ const Mentor = (props) => {
 			});
 	};
 
-
 	return (
 		<>
 			<div className="header">
@@ -192,7 +191,8 @@ const Mentor = (props) => {
 							<p className="obj">{obj.objectives}</p>
 							<div className="comp-btn">
 								{competency.map((comp, index) => (
-									<button key={index}>{comp.competency}</button>
+									<button disabled={true} key={index}
+									>{comp.competency}</button>
 								))}
 							</div>
 						</div>
