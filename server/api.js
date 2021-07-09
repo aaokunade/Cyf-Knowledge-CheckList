@@ -97,7 +97,7 @@ router.post("/students-page", (req, res) => {
 							})
 							.catch((e) => res.status(500).json({ message: e }));
 					} else {
-						res.status(200).json({ lessons: lessonsArray });
+						res.status(200).json({ lessons: lessonsArray , competencies: [] });
 					}
 				})
 				.catch((e) => res.status(500).json({ message: e }));
@@ -284,7 +284,7 @@ router.post("/objectives", (req, res) => {
 	const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
 	if (
 		!regExpression.exec(newObj)
-    || newObj.toString().trim().length === 0 || (lesson_id === 7)
+    || newObj.toString().trim().length === 0 && (lesson_id === 7)
 	) {
 		res.status(500).send({ message: "Fill in correct field" });
 	} else {
