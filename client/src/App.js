@@ -13,7 +13,7 @@ const App = () => (
 	<div>
 	 <Switch>
 	 	<Route path="/student"><Student /></Route>
-		 <Route path="/Mentor"><Mentor /></Route>
+		 <Route path="/mentor"><Mentor /></Route>
 	 	 
 
 		 <Route path="/" exact><Home /></Route>
