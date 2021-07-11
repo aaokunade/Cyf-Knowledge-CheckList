@@ -1,7 +1,3 @@
-
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable react/jsx-key */
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
@@ -36,7 +32,6 @@ const Student = (props) => {
 				})
 					.then((result) => result.json())
 					.then((lessons) => {
-						console.log(lessons);
 						setLessons(lessons);
 					});
 			});
@@ -71,7 +66,6 @@ const Student = (props) => {
 				} else {
 					updateComp(lesson, objective, competency);
 				}
-				console.log(res);
 			});
 	};
 	const isActive = (lesson, objective, competency) => {
@@ -88,15 +82,13 @@ const Student = (props) => {
 			(c) => c.lessons === lesson && c.objectives === objective
 		);
 		if (index !== -1) {
-			console.log(index);
 			lessons.competencies[index].competency = competency;
 		} else {
 			lessons.competencies.push(competency);
 		}
-		console.log(lessons.competencies);
 		setLessons({ ...lessons, competencies: lessons.competencies });
 	};
-	
+
 	return (
 		<div className="student-page">
 			<div className="header">

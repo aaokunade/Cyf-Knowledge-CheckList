@@ -2,7 +2,7 @@ import { Router } from "express";
 import db from "./db";
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
-//-------------------------------------function to validate------------------------------------
+
 //----------------------------------home route--------------------------------------------------
 const router = new Router();
 router.get("/", (_, res) => {
@@ -31,9 +31,9 @@ router.get("/competency", (req, res) => {
 });
 // -----------------------query to get allstudents Only---------------------------------
 router.post("/get-students-only", (req, res) => {
-	const getStudentsForMentorQuery = "SELECT name FROM users WHERE roles_id = 2";
+	const getStudentsForMentorQuery = "SELECT name, id FROM users WHERE roles_id = 2";
 	db.query(getStudentsForMentorQuery)
-		.then((result) => res.status(201).send(result.rows))
+		.then((result) => res.status(201).json(result.rows))
 		.catch((e) => res.status(500).json({ message: e }));
 });
 // -----------------------query to get students update for mentor and returning students---------------------------------
@@ -41,9 +41,7 @@ router.post("/students-page", (req, res) => {
 	const lessonsOnlyQuery = `SELECT objectives, learningobjectives.id as id, lessons
     FROM learningobjectives
     INNER JOIN techskills ON  learningobjectives.lesson_id = techskills.id ORDER BY lessons`;
-	console.log(req.body);
 	const user_id = req.body.userId;
-	const obj_id = req.body.obj_id;
 	const tokenSent = req.headers.authorization;
 	if (tokenSent === undefined) {
 		res.sendStatus(401);
@@ -72,7 +70,6 @@ router.post("/students-page", (req, res) => {
 		db.query(lessonsOnlyQuery).then((result) => {
 			let lessonsArray = {};
 			result.rows.forEach((row) => {
-				// console.log(result.rows);
 				if (!lessonsArray.hasOwnProperty(row.lessons)) {
 					lessonsArray[row.lessons] = [
 						{ objectives: row.objectives, id: row.id },
@@ -87,7 +84,6 @@ router.post("/students-page", (req, res) => {
 			//  check if student has filled some competency levels
 			db.query(studentMappingSkills)
 				.then((result) => {
-					console.log(result.rows[0].exists);
 					if (result.rows[0].exists) {
 						db.query(updatedSkillsQuery)
 							.then((result) => {
@@ -106,7 +102,6 @@ router.post("/students-page", (req, res) => {
 });
 //------------------------query to post data at creation of account to database------------------
 router.post("/users/sign-up", async (req, res) => {
-	console.log(req.body);
 	const regExpression = /^[a-zA-Z0-9 -]{1,60}$/;
 	const newRoleName = req.body.name;
 	const newRoleEmail = req.body.email;
@@ -163,7 +158,6 @@ router.get("/regions", (req, res) => {
 });
 //---------------query to update and insert the learning objectives in mappingskills;----------------
 router.post("/mapping-skills", function (req, res) {
-	console.log(req.body);
 	const insertMappingskillsQuery
     = "INSERT INTO mappingskills (users_id, obj_id, comp_id) VALUES ($1, $2, $3) RETURNING ID";
 	const updateQuery
@@ -200,7 +194,6 @@ router.post("/mapping-skills", function (req, res) {
 							})
 						);
 					})
-				// res.json({ "message":`mappingskills, ${user_id} inserted!` }))
 					.catch((e) => res.status(500).json({ message: e }));
 			}
 		})
@@ -227,9 +220,7 @@ router.post("/users/log-in", (req, res) => {
 			const isValid = bcrypt.compareSync(userPassword, hashed);
 			if (isValid) {
 				const newToken = uuidv4();
-				console.log(newToken);
 				const creationDate = new Date().toLocaleString();
-				console.log(creationDate);
 				db.query(tokenInsert, [newToken, userId, creationDate])
 					.then((result) =>
 						res
@@ -265,7 +256,6 @@ router.post("/objectives", (req, res) => {
     = "INSERT INTO learningobjectives(objectives, lesson_id) VALUES($1, $2)";
 	const newObj = req.body.newObj;
 	const lesson = req.body.lesson;
-	console.log(lesson);
 	let lesson_id;
 	if(lesson === "HTML/CSS"){
 		lesson_id = 1;
@@ -294,7 +284,7 @@ router.post("/objectives", (req, res) => {
 				res.json({ message: "New LearningObjectives inserted!" })
 			)
 			.catch((e) => console.error(e));
-	} // res.status(500).json({ "message":e }));
+	}
 });
 router.delete("/objectives/:objId", (req, res) => {
 

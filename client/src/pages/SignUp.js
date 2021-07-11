@@ -29,7 +29,6 @@ const SignUp = () => {
 
 	function handleFormSubmit(event) {
 		event.preventDefault();
-		console.log(Validation(values));
 		setErrors(Validation(values));
 		if ( Object.keys(Validation(values)).length === 0){
 			fetch("/api/users/sign-up", {
@@ -42,7 +41,6 @@ const SignUp = () => {
 			})
 				.then((result) => result.json())
 				.then((res) => {
-					console.log(res);
 					if (res.message === "Account created") {
 						setIsSubmitted(true);
 					} else {
