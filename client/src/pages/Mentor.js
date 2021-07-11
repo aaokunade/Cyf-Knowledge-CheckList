@@ -226,10 +226,10 @@ const Mentor = (props) => {
 				</form>
 			</div>
 			<div className="skills-btn-container">
-				{Object.keys(lessons).map((lesson, index) => (
-					<button className="skills-btn" key={index}>
-						<a href={"#" + lesson}>{lesson}</a>
-					</button>
+				{Object.keys(lessons.lessons).map((lesson, index) => (
+					<a className="skills-btn" key={index} href={"#" + lesson}>
+						{lesson}
+					</a>
 				))}
 			</div>
 			{Object.keys(lessons.lessons).map((lesson, index) => (
