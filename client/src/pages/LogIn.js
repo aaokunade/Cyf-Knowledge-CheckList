@@ -19,6 +19,7 @@ function LogIn() {
 	const [errors, setErrors] = useState({});
 	const [isLogged, setIsLogged] = useState(false);
 	const [isMentor, setIsMentor] = useState(false);
+	const [notValid, setNotValid] = useState(false);
 
 	const [details, setDetails] = useState({
 		errorMessage: "",
@@ -51,6 +52,7 @@ function LogIn() {
 					res.message === "wrong password"
           || res.message === "cannot find user"
 				) {
+					setNotValid(true);
 					setIsLogged(false);
 					setDetails({ errorMessage: res.message, userId: "" });
 				} else if (res.message === 2) {
@@ -88,7 +90,7 @@ function LogIn() {
 					</div>
 					<div className="signUp-wrapper login">
 						<form action="/" method="POST" autoComplete="off">
-							{details === "false" && <p>Password or Username invalid</p>}
+							{notValid && <p>Password or Username invalid</p>}
 							<div>
 								<label htmlFor="email" className="s-email">
                   Email
