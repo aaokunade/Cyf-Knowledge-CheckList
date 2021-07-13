@@ -49,7 +49,7 @@ export function Home() {
         </div>
         <div className="main">
           <div className="welcome-text">
-            <p>Welcome to the Knowledge Checklist.</p>
+            <p>Welcome to the Knowledge Checklist</p>
             <p>
               At CodeYourFuture, our students gain a vast amount of knowledge
               and skills, which will result in them being able to call
@@ -63,9 +63,6 @@ export function Home() {
             <img className="image" src={image} alt="students" />
           </div>
         </div>
-
-        {/* <h1 className="message" data-qa="message">{message}</h1> */}
-        {/* <Link to="/about/this/site">About</Link> */}
       </div>
       <div className="home-footer">
            <div className="home-links">
