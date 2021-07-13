@@ -29,7 +29,7 @@ const SignUp = () => {
 
 	function handleFormSubmit(event) {
 		event.preventDefault();
-		console.log(Validation(values));
+		// console.log(Validation(values));
 		setErrors(Validation(values));
 		if ( Object.keys(Validation(values)).length === 0){
 			fetch("/api/users/sign-up", {
@@ -184,22 +184,21 @@ const SignUp = () => {
 							</div>
 
 							<div>
-								<button
+								<a
 									className="signUp-btn"
 									type="submit"
-									onClick={handleFormSubmit}
-								>
-                  Sign Up
-								</button>
+									onClick={handleFormSubmit}>
+                 				 Sign Up
+								</a>
 								<Link className="link-home" to="/">
-                    Cancel
+                   				 Cancel
 								</Link>
 							</div>
 						</form>
 					</div>
 					<p className="login-signup-link">Already have an account.
 						<Link className="link login-signup" to="/login">
-              Login
+              				Login
 						</Link>
 					</p>
 					<Footer />
