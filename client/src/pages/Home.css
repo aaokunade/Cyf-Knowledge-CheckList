@@ -204,7 +204,7 @@ input {
 .signUp-btn {
     background-color: black;
     width: 20%;
-    height: 50px;
+    padding: 3.4%;
     font-size: 1rem;
     cursor: pointer;
     margin-right: 4%;
@@ -218,12 +218,11 @@ input {
     color: white;
     background-color: black;
     width: 20%;
-    height: 50px;
     font-size: 1rem;
     margin-right: 4%;
     margin-top: 1%;
     border-radius: 10%;
-    padding: 3.5%;
+    padding: 3.4%;
 }
 
 .sign-up-dropdown {
@@ -393,7 +392,7 @@ input {
 }
 
 .scroll-up {
-    font-size: 2.7rem;
+    font-size: 3rem;
 }
 
 /* SignUPSuccess component */
@@ -560,9 +559,3 @@ input {
     box-shadow: 4px 6px rgb(94, 89, 89);
 }
 
-/* media queries */
-
-/*Small smartphones [325px -> 425px]*/
-/* @media only screen and (max-width: 425px){
-	
-} */

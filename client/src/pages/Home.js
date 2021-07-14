@@ -27,43 +27,41 @@ export function Home() {
 					</Link>
 					<Link className="link" to="/login">
               Login
-					</Link>
 
-					{/* <button>Admin</button> */}
-				</div>
-				<div className="main">
-					<div className="welcome-text">
-						<p>Welcome to the Knowledge Checklist.</p>
-						<p>
+            </Link>
+        </div>
+        <div className="main">
+          <div className="welcome-text">
+            <p>Welcome to the Knowledge Checklist</p>
+            <p>
+
               At CodeYourFuture, our students gain a vast amount of knowledge
               and skills, which will result in them being able to call
               themselves a programmer. It’s important that we can track a
               student's progress over the course to make sure that they are
               keeping up with the class and developing their understanding of
               our material.
-						</p>
-					</div>
-					<div className="home-image">
-						<img className="image" src={image} alt="students" />
-					</div>
-				</div>
+            </p>
+          </div>
+          <div className="home-image">
+            <img className="image" src={image} alt="students" />
+          </div>
+        </div>
+      </div>
+      <div className="home-footer">
+           <div className="home-links">
+                <a className="icons-home" href="https://codeyourfuture.io/" target="_blank"><i className="fa fa-home"></i></a>
+                <a className="icons-home" href="https://www.facebook.com/codeyourfuture.io" target="_blank"><i className="fa fa-facebook-square"></i></a>
+                <a className="icons-home" href="https://twitter.com/CodeYourFuture_" target="_blank"><i className="fa fa-twitter-square"></i></a>
+                <a className="icons-home" href="https://www.linkedin.com/company/codeyourfuture" target="_blank"><i className="fa fa-linkedin-square"></i></a>
+                <a className="icons-home" href="mailto:contact@codeyourfuture.io" target="_blank"><i className="fa fa-envelope" /></a>
+            </div>
+            <p>Copyright &copy; 2021 Code Your Future</p>  
+      </div>
+           
+    </div>
+  );
 
-				{/* <h1 className="message" data-qa="message">{message}</h1> */}
-				{/* <Link to="/about/this/site">About</Link> */}
-			</div>
-			<div className="home-footer">
-				<div className="home-links">
-					<a className="icons-home" href="https://codeyourfuture.io/" target="_blank" rel="noreferrer"><i className="fa fa-home"></i></a>
-					<a className="icons-home" href="https://www.facebook.com/codeyourfuture.io" target="_blank" rel="noreferrer"><i className="fa fa-facebook-square"></i></a>
-					<a className="icons-home" href="https://twitter.com/CodeYourFuture_" target="_blank" rel="noreferrer"><i className="fa fa-twitter-square"></i></a>
-					<a className="icons-home" href="https://www.linkedin.com/company/codeyourfuture" target="_blank" rel="noreferrer"><i className="fa fa-linkedin-square"></i></a>
-					<a className="icons-home" href="mailto:contact@codeyourfuture.io" target="_blank" rel="noreferrer"><i className="fa fa-envelope" /></a>
-				</div>
-				<p>Copyright &copy; 2021 Code Your Future</p>
-			</div>
-
-		</div>
-	);
 }
 
 export default Home;
