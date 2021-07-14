@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import logo from "./Images/cyf_logo.jpeg";
+import ScrollToTop from "./ScrollToTop";
 import { globalState } from "./LogIn";
 
 
 //all useStates- to collate all students and lessons from the dropdown selection box
 const Mentor = (props) => {
-	const [lessons, setLessons] = useState({});
+	const [lessons, setLessons] = useState({ lessons: {} });
 	const [lessonsDropDown, setLessonsDropDown] = useState([]);
 	const [updateCompetency, setUpdateCompetency] = useState({
 		lesson: "",
@@ -24,6 +25,7 @@ const Mentor = (props) => {
 	const [competency, setCompetency] = useState([]);
 	const [students, setStudents] = useState([]);
 	const handleChange = (event) => {
+		const stdUserId = parseInt(event.currentTarget.selectedOptions[0].id);
 		fetch("api/competency")
 			.then((result) => result.json())
 			.then((competency) => {
@@ -35,15 +37,14 @@ const Mentor = (props) => {
 						Accept: "application/json",
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ userId: props.user.userId }),
+					body: JSON.stringify({ userId: stdUserId }),
 				})
 					.then((result) => result.json())
 					.then((lessons) => {
-						setLessons(lessons.lessons);
-						console.log(lessons);
+						setLessons(lessons);
 					});
 			});
-		// useEffect - this token recogonises the Student account selected & provides access to their Overview page
+		// useEffect - this token recognizes the Student account selected & provides access to their Overview page
 	};
 	useEffect(() => {
 		fetch("api/get-students-only", {
@@ -86,7 +87,6 @@ const Mentor = (props) => {
 		})
 			.then((result) => result.json())
 			.then((res) => {
-				console.log(res);
 				if (res.message === "New LearningObjectives inserted!") {
 					setIsSubmitted(true);
 					alert("New Objective Added");
@@ -96,6 +96,58 @@ const Mentor = (props) => {
 				}
 			});
 	};
+
+	const updateCompetencyOnClick = (
+		lesson,
+		obj_id,
+		competencyId,
+		objective,
+		competency
+	) => {
+		let mappingSkills = {
+			lesson: lesson,
+			obj_id: obj_id,
+			competencyId: competencyId,
+			user: props.user,
+		};
+		setUpdateCompetency(mappingSkills);
+		fetch("/api/mapping-skills", {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(mappingSkills),
+		})
+			.then((result) => result.json())
+			.then((res) => {
+				if (res.competency) {
+					updateComp(lesson, objective, res.competency);
+				} else {
+					updateComp(lesson, objective, competency);
+				}
+			});
+	};
+	const isActive = (lesson, objective, competency) => {
+		return lessons.competencies.find(
+			(c) =>
+				c.lessons === lesson
+        && c.objectives === objective
+        && c.competency === competency
+		);
+	};
+	const updateComp = (lesson, objective, competency) => {
+		const index = lessons.competencies.findIndex(
+			(c) => c.lessons === lesson && c.objectives === objective
+		);
+		if (index !== -1) {
+			lessons.competencies[index].competency = competency;
+		} else {
+			lessons.competencies.push(competency);
+		}
+		setLessons({ ...lessons, competencies: lessons.competencies });
+	};
+
 
 	return (
 		<>
@@ -121,7 +173,7 @@ const Mentor = (props) => {
 				<select className="Stulabel" name="student" onChange={handleChange}>
 					<option className="option">Select Student</option>
 					{students.map((student, index) => (
-						<option key={index} value={student.name}>
+						<option id = {student.id} key={index} value={student.name}>
 							{student.name}
 						</option>
 					))}
@@ -160,38 +212,49 @@ const Mentor = (props) => {
 								</option>
 							))}
 						</select>
-						{/* {errors.lesson && <p className="error">{errors.lesson}</p>} */}
 					</div>
 
 					<button
 						className="submitbutn"
 						type="submit"
 						onClick={handleObjSubmit}
-						// formTarget="_blank"
 					>Submit New Objective</button>
 					<button
 						className="deletebutn"
 						type="submit"
-						// formTarget="_blank"
 					>Delete Objective</button>
 				</form>
 			</div>
 			<div className="skills-btn-container">
-				{Object.keys(lessons).map((lesson, index) => (
-					<button className="skills-btn" key={index}>
-						<a href={"#" + lesson}>{lesson}</a>
-					</button>
+				{Object.keys(lessons.lessons).map((lesson, index) => (
+					<a className="skills-btn" key={index} href={"#" + lesson}>
+						{lesson}
+					</a>
 				))}
 			</div>
-			{Object.keys(lessons).map((lesson, index) => (
+			{Object.keys(lessons.lessons).map((lesson, index) => (
 				<div className="skill-section" id={lesson} key={index}>
 					<h2>{lesson}</h2>
-					{lessons[lesson].map((obj, index) => (
+					{lessons.lessons[lesson].map((obj, index) => (
 						<div className="competency-level" key={index}>
 							<p className="obj">{obj.objectives}</p>
 							<div className="comp-btn">
 								{competency.map((comp, index) => (
-									<button disabled={true} key={index}
+									<button disabled = {true} key={index}
+										onClick={() => {
+											updateCompetencyOnClick(
+												lesson,
+												obj.id,
+												comp.id,
+												obj.objectives,
+												comp.competency
+											);
+										}}
+										style={
+											isActive(lesson, obj.objectives, comp.competency)
+												? { backgroundColor: "red", color: "white" }
+												: {}
+										}
 									>{comp.competency}</button>
 								))}
 							</div>
@@ -199,6 +262,7 @@ const Mentor = (props) => {
 					))}
 				</div>
 			))}
+			<ScrollToTop />
 			<Footer />
 		</>
 	);

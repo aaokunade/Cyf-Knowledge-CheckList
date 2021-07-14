@@ -43,7 +43,7 @@ lessons VARCHAR(50)NOT NULL
 CREATE TABLE learningobjectives (
 id  SERIAL PRIMARY KEY,
 objectives  VARCHAR (500)NOT NULL,
-lesson_id   integer, --references techskills(id),
+lesson_id   integer,
 FOREIGN KEY (lesson_id) REFERENCES techskills(id)
 );
 
@@ -55,8 +55,8 @@ competency  VARCHAR(50)NOT NULL
 CREATE TABLE mappingskills (
 id  SERIAL PRIMARY KEY,
 users_id    integer,
-obj_id  integer,--references learningobjectives(id),
-comp_id integer, -- references competencylevel(id),
+obj_id  integer,
+comp_id integer,
 FOREIGN KEY (users_id) REFERENCES users(id),
 FOREIGN KEY (obj_id) REFERENCES learningobjectives(id),
 FOREIGN KEY (comp_id) REFERENCES competencylevels(id)
@@ -73,11 +73,6 @@ INSERT INTO region (location) VALUES ('Cape Town');
 INSERT INTO roles (role) VALUES ('mentor');
 INSERT INTO roles (role) VALUES ('student');
 INSERT INTO roles (role) VALUES ('admin');
--- INSERT INTO users (name, email, password,roles_id, region_id) VALUES ('s2','email@email.com','password', 2, 2);
--- INSERT INTO users (name, email, password,roles_id, region_id) VALUES ('s1','email@email.com','password', 1, 3);
--- INSERT INTO users (name, email, password,roles_id, region_id) VALUES ('sue','email@email.com','password', 1, 2);
--- INSERT INTO users (name, email, password,roles_id, region_id) VALUES ('pete','email@email.com','password', 1, 3);
--- INSERT INTO users (name, email, password,roles_id, region_id) VALUES ('admin','admin@email.com','password', 3, 1);
 INSERT INTO techskills (lessons) VALUES ('HTML/CSS');
 INSERT INTO techskills (lessons) VALUES ('Git');
 INSERT INTO techskills (lessons) VALUES ('Javascript');
@@ -200,7 +195,3 @@ INSERT INTO competencylevels(competency) VALUES ('Not yet learned');
 INSERT INTO competencylevels(competency) VALUES ('In progress');
 INSERT INTO competencylevels(competency) VALUES ('Support needed');
 INSERT INTO competencylevels(competency) VALUES ('Mastered');
--- INSERT INTO mappingskills (users_id, obj_id, comp_id) VALUES (1, 1, 1);
--- INSERT INTO mappingskills (users_id, obj_id, comp_id) VALUES (1, 3, 2);
--- INSERT INTO mappingskills (users_id, obj_id, comp_id) VALUES (3, 1, 3);
--- INSERT INTO mappingskills (users_id, obj_id, comp_id) VALUES (3, 2, 4);
