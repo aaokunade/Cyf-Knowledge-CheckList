@@ -19,21 +19,21 @@ router.get("/all-users", (req, res) => {
 router.get("/lessons", (req, res) => {
 	const lessonQuery = "SELECT lessons FROM techskills";
 	db.query(lessonQuery)
-		.then((result) => res.status(201).send(result.rows))
+		.then((result) => res.status(200).send(result.rows))
 		.catch((e) => res.status(500).json({ message: e }));
 });
 // -----------------------query to get all competency levels---------------------------------
 router.get("/competency", (req, res) => {
 	const competencyQuery = "SELECT * FROM competencylevels";
 	db.query(competencyQuery)
-		.then((result) => res.status(201).send(result.rows))
+		.then((result) => res.status(200).send(result.rows))
 		.catch((e) => res.status(500).json({ message: e }));
 });
 // -----------------------query to get allstudents Only---------------------------------
 router.post("/get-students-only", (req, res) => {
 	const getStudentsForMentorQuery = "SELECT name, id FROM users WHERE roles_id = 2";
 	db.query(getStudentsForMentorQuery)
-		.then((result) => res.status(201).json(result.rows))
+		.then((result) => res.status(200).json(result.rows))
 		.catch((e) => res.status(500).json({ message: e }));
 });
 // -----------------------query to get students update for mentor and returning students---------------------------------
@@ -56,7 +56,7 @@ router.post("/students-page", (req, res) => {
 		}
 		const user = result.rows[0];
 		if (user.roles_id === 2 && user.users_id !== user_id) {
-			res.sendStatus(401);
+			res.sendStatus(403);
 			return;
 		}
 		const updatedSkillsQuery = `SELECT objectives, learningobjectives.id as id, lessons, competency, users_id
@@ -135,7 +135,7 @@ router.post("/users/sign-up", async (req, res) => {
 			!regExpression.exec(newRoleName)
       || newRoleName.toString().trim().length === 0
 		) {
-			res.status(500).send({ message: "Fill in correct field" });
+			res.status(400).send({ message: "Fill in correct field" });
 		} else {
 			db.query(insertUserQuery, [
 				newRoleName,
@@ -171,13 +171,14 @@ router.post("/mapping-skills", function (req, res) {
 		.then((result) => {
 			if (result.rows[0].exists) {
 				db.query(updateQuery, [comp_id, user_id, obj_id])
-					.then((result) =>
-						res.json({ message: `mappingskills ${user_id} updated!` })
-					)
+					.then((result) =>{
+						res.status(201).json({ message: `mappingskills ${user_id} updated!` })
+			})
 					.catch((e) => res.status(500).json({ message: e }));
 			} else {
 				db.query(insertMappingskillsQuery, [user_id, obj_id, comp_id])
 					.then((result) => {
+						console.log(result.rows[0].id);
 						const newCompId = result.rows[0].id;
 						const updatedSkillsQuery = `SELECT objectives, learningobjectives.id as id, lessons, competency, users_id
     FROM learningobjectives
@@ -187,7 +188,7 @@ router.post("/mapping-skills", function (req, res) {
     INNER JOIN competencylevels ON mappingskills.comp_id = competencylevels.id
     WHERE users_id = '${user_id}' and mappingskills.id = ${newCompId}`;
 						db.query(updatedSkillsQuery).then((result) =>
-							res.json({
+							res.status(201).json({
 								message: `mappingskills, ${user_id} inserted!`,
 								test: "test",
 								competency: result.rows[0],
@@ -210,7 +211,7 @@ router.post("/users/log-in", (req, res) => {
 		res.status(200);
 		const loginResult = result.rows[0];
 		if (loginResult === undefined) {
-			return res.status(400).json({ message: "cannot find user" });
+			return res.status(401).json({ message: "cannot find user" });
 		}
 		try {
 			const hashed = loginResult["password"];
@@ -224,7 +225,7 @@ router.post("/users/log-in", (req, res) => {
 				db.query(tokenInsert, [newToken, userId, creationDate])
 					.then((result) =>
 						res
-							.status(200)
+							.status(201)
 							.json({
 								message: userRole,
 								id: userId,
@@ -248,7 +249,7 @@ router.post("/users/log-in", (req, res) => {
 router.get("/updated-mapping-skills", (req, res) => {
 	const updatedMappingSkills = "SELECT * FROM mappingskills";
 	db.query(updatedMappingSkills)
-		.then((result) => res.status(201).send(result.rows))
+		.then((result) => res.status(200).send(result.rows))
 		.catch((e) => res.status(500).json({ message: e }));
 });
 router.post("/objectives", (req, res) => {
@@ -277,11 +278,11 @@ router.post("/objectives", (req, res) => {
 		(!regExpression.exec(newObj))
     || (newObj.toString().trim().length === 0) || (lesson_id === undefined)
 	) {
-		res.status(500).send({ message: "Fill in correct field" });
+		res.status(400).send({ message: "Fill in correct field" });
 	} else {
 		db.query(insertObjQuery, [newObj, lesson_id])
 			.then((result) =>
-				res.json({ message: "New LearningObjectives inserted!" })
+				res.status(201).json({ message: "New LearningObjectives inserted!" })
 			)
 			.catch((e) => console.error(e));
 	}
@@ -292,7 +293,7 @@ router.delete("/objectives/:objId", (req, res) => {
 	db.query("DELETE FROM mappingskills WHERE obj_id=$1", [objectiveId])
 		.then(() => {
 			db.query("DELETE FROM learningobjectives WHERE id=$1", [objectiveId])
-				.then(() => res.status(200).send(`Objective ${objectiveId} deleted!`))
+				.then(() => res.status(204).send(`Objective ${objectiveId} deleted!`))
 				.catch((e) => console.error(e));
 		})
 		.catch((e) => console.error(e));
